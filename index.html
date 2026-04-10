@@ -136,6 +136,7 @@ a {
   font-weight: 700;
   color: var(--color-text);
   letter-spacing: 0.15em;
+  cursor: pointer;
 }
 
 .nav-logo span {
@@ -156,6 +157,9 @@ a {
   color: var(--color-text-secondary);
   position: relative;
   padding: var(--spacing-xs) 0;
+  cursor: pointer;
+  background: none;
+  border: none;
 }
 
 .nav-links a::after {
@@ -193,6 +197,20 @@ a {
   height: 2px;
   background: var(--color-text);
   transition: var(--transition-fast);
+}
+
+/* ========================================
+   Page Sections - SPA Support
+   ======================================== */
+.page-section {
+  display: block;
+  opacity: 1;
+  transition: opacity 0.3s ease;
+}
+
+.page-section.hidden {
+  display: none;
+  opacity: 0;
 }
 
 /* ========================================
@@ -366,14 +384,23 @@ a {
 }
 
 /* ========================================
-   Works Grid
+   Works Grid - 混合布局（统一3:4竖版）
    ======================================== */
 .works-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  grid-template-columns: repeat(3, 1fr);
   gap: var(--spacing-md);
 }
 
+/* 主视觉大卡片区域 - 左侧大卡片(跨2行) + 右侧4个小卡片 */
+.works-grid-featured {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: var(--spacing-md);
+  margin-bottom: var(--spacing-md);
+}
+
+/* 标准竖版卡片 - 3:4比例 */
 .work-card {
   position: relative;
   background: var(--color-bg-card);
@@ -381,12 +408,46 @@ a {
   overflow: hidden;
   cursor: pointer;
   transition: var(--transition-medium);
+  aspect-ratio: 3/4;
 }
 
 .work-card:hover {
   border-color: var(--color-accent-red);
   transform: translateY(-5px);
   box-shadow: var(--shadow-glow-red);
+}
+
+/* 主视觉大卡片样式 - 占1列，跨越2行，3:4竖版 */
+.work-card.featured {
+  grid-column: span 1;
+  grid-row: span 2;
+  aspect-ratio: 3/4;
+  border: 2px solid var(--color-accent-red);
+  position: relative;
+}
+
+.work-card.featured:hover {
+  transform: translateY(-8px) scale(1.02);
+  box-shadow: 0 0 40px rgba(178, 34, 34, 0.6), 0 0 80px rgba(178, 34, 34, 0.3);
+}
+
+/* Featured 标签 */
+.work-card.featured .featured-badge {
+  position: absolute;
+  top: var(--spacing-md);
+  left: var(--spacing-md);
+  background: var(--color-accent-red);
+  color: var(--color-text);
+  font-family: var(--font-heading);
+  font-size: 0.75rem;
+  padding: 0.4rem 1rem;
+  letter-spacing: 0.15em;
+  z-index: 10;
+  box-shadow: var(--shadow-glow-red);
+}
+
+.work-card.featured .featured-badge::before {
+  content: '★ ';
 }
 
 /* Video Badge */
@@ -480,142 +541,6 @@ a {
 .work-info p {
   font-size: 0.9rem;
   color: var(--color-text-secondary);
-}
-
-/* ========================================
-   Work Detail Page
-   ======================================== */
-.work-detail {
-  padding-top: 100px;
-  min-height: 100vh;
-}
-
-.work-detail-header {
-  text-align: center;
-  margin-bottom: var(--spacing-lg);
-}
-
-.work-detail-header h1 {
-  margin-bottom: var(--spacing-sm);
-}
-
-.work-detail-header .category {
-  font-family: var(--font-heading);
-  font-size: 0.9rem;
-  color: var(--color-accent-red);
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
-}
-
-/* Video Player */
-.video-player {
-  width: 100%;
-  max-width: 1000px;
-  margin: 0 auto var(--spacing-lg);
-  aspect-ratio: 16/9;
-  background: var(--color-bg-secondary);
-  border: 1px solid var(--color-border);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  position: relative;
-}
-
-.video-player video,
-.video-player iframe {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-
-.video-placeholder {
-  text-align: center;
-  color: var(--color-text-secondary);
-}
-
-.video-placeholder .icon {
-  font-size: 4rem;
-  margin-bottom: var(--spacing-sm);
-  color: var(--color-accent-red);
-}
-
-/* Image Gallery */
-.image-gallery {
-  width: 100%;
-  max-width: 1000px;
-  margin: 0 auto var(--spacing-lg);
-}
-
-.image-gallery img {
-  width: 100%;
-  height: auto;
-  border: 1px solid var(--color-border);
-}
-
-/* Project Info */
-.project-info {
-  max-width: 800px;
-  margin: 0 auto var(--spacing-lg);
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  gap: var(--spacing-md);
-  padding: var(--spacing-md);
-  background: var(--color-bg-card);
-  border: 1px solid var(--color-border);
-}
-
-.project-info-item h4 {
-  font-size: 0.9rem;
-  color: var(--color-text-secondary);
-  margin-bottom: var(--spacing-xs);
-  text-transform: uppercase;
-  letter-spacing: 0.1em;
-}
-
-.project-info-item p {
-  color: var(--color-text);
-  font-size: 1rem;
-}
-
-/* Project Description */
-.project-description {
-  max-width: 800px;
-  margin: 0 auto;
-  padding: var(--spacing-lg) 0;
-  border-top: 1px solid var(--color-border);
-}
-
-.project-description h3 {
-  margin-bottom: var(--spacing-md);
-  color: var(--color-accent-red);
-}
-
-.project-description p {
-  line-height: 1.8;
-  margin-bottom: var(--spacing-sm);
-}
-
-/* Back Button */
-.back-button {
-  display: inline-flex;
-  align-items: center;
-  gap: var(--spacing-xs);
-  padding: var(--spacing-sm) var(--spacing-md);
-  font-family: var(--font-heading);
-  font-size: 0.9rem;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  color: var(--color-text);
-  border: 1px solid var(--color-border);
-  background: transparent;
-  cursor: pointer;
-  transition: var(--transition-medium);
-  margin-top: var(--spacing-lg);
-}
-
-.back-button:hover {
-  border-color: var(--color-accent-red);
-  color: var(--color-accent-red);
 }
 
 /* ========================================
@@ -771,6 +696,62 @@ a {
 }
 
 /* ========================================
+   Category Filter Tabs
+   ======================================== */
+.category-filter {
+  display: flex;
+  justify-content: center;
+  gap: var(--spacing-md);
+  margin-bottom: var(--spacing-lg);
+  flex-wrap: wrap;
+}
+
+.category-tab {
+  font-family: var(--font-heading);
+  font-size: 0.95rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--color-text-secondary);
+  background: none;
+  border: none;
+  padding: var(--spacing-xs) var(--spacing-sm);
+  cursor: pointer;
+  position: relative;
+  transition: var(--transition-fast);
+}
+
+.category-tab::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 0;
+  height: 2px;
+  background: var(--color-accent-red);
+  transition: var(--transition-medium);
+}
+
+.category-tab:hover {
+  color: var(--color-text);
+}
+
+.category-tab.active {
+  color: var(--color-text);
+}
+
+.category-tab.active::after {
+  width: 100%;
+  box-shadow: var(--shadow-glow-red);
+}
+
+.category-tab .count {
+  font-size: 0.75rem;
+  color: var(--color-accent-red);
+  margin-left: 4px;
+}
+
+/* ========================================
    Footer
    ======================================== */
 .footer {
@@ -786,116 +767,6 @@ a {
 
 .footer span {
   color: var(--color-accent-red);
-}
-
-/* ========================================
-   Responsive Design
-   ======================================== */
-@media (max-width: 768px) {
-  /* Navigation */
-  .nav-toggle {
-    display: flex;
-  }
-
-  .nav-links {
-    position: fixed;
-    top: 60px;
-    left: 0;
-    right: 0;
-    background: rgba(0, 0, 0, 0.98);
-    flex-direction: column;
-    padding: var(--spacing-md);
-    gap: var(--spacing-sm);
-    border-bottom: 1px solid var(--color-border);
-    transform: translateY(-100%);
-    opacity: 0;
-    visibility: hidden;
-    transition: var(--transition-medium);
-  }
-
-  .nav-links.active {
-    transform: translateY(0);
-    opacity: 1;
-    visibility: visible;
-  }
-
-  /* Works Grid */
-  .works-grid {
-    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-    gap: var(--spacing-sm);
-  }
-
-  /* Hero */
-  .hero {
-    padding: var(--spacing-lg) var(--spacing-sm);
-  }
-
-  .scroll-indicator {
-    display: none;
-  }
-
-  /* Section */
-  .section {
-    padding: var(--spacing-lg) 0;
-  }
-
-  /* Contact Links */
-  .contact-links {
-    flex-direction: column;
-    align-items: center;
-  }
-}
-
-@media (max-width: 480px) {
-  .container {
-    padding: 0 var(--spacing-sm);
-  }
-
-  .works-grid {
-    grid-template-columns: 1fr;
-  }
-
-  .project-info {
-    grid-template-columns: 1fr;
-  }
-
-  .skills-grid {
-    grid-template-columns: 1fr;
-  }
-}
-
-/* ========================================
-   Animations
-   ======================================== */
-.fade-in {
-  animation: fadeIn 0.6s ease forwards;
-}
-
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-    transform: translateY(20px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-/* Page Load Animation */
-.page-content {
-  opacity: 0;
-  animation: pageLoad 0.8s ease forwards;
-  animation-delay: 0.2s;
-}
-
-@keyframes pageLoad {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
 }
 
 /* ========================================
@@ -1036,7 +907,92 @@ a {
   font-size: 1rem;
 }
 
+/* ========================================
+   Animations
+   ======================================== */
+.fade-in {
+  animation: fadeIn 0.6s ease forwards;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ========================================
+   Responsive Design
+   ======================================== */
 @media (max-width: 768px) {
+  /* Navigation */
+  .nav-toggle {
+    display: flex;
+  }
+
+  .nav-links {
+    position: fixed;
+    top: 60px;
+    left: 0;
+    right: 0;
+    background: rgba(0, 0, 0, 0.98);
+    flex-direction: column;
+    padding: var(--spacing-md);
+    gap: var(--spacing-sm);
+    border-bottom: 1px solid var(--color-border);
+    transform: translateY(-100%);
+    opacity: 0;
+    visibility: hidden;
+    transition: var(--transition-medium);
+  }
+
+  .nav-links.active {
+    transform: translateY(0);
+    opacity: 1;
+    visibility: visible;
+  }
+
+  /* Works Grid - 响应式 */
+  .works-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--spacing-sm);
+  }
+
+  /* Featured 区域 - 移动端第一张跨2列 */
+  .works-grid-featured {
+    grid-template-columns: repeat(2, 1fr);
+    margin-bottom: var(--spacing-sm);
+  }
+
+  .work-card.featured {
+    grid-column: span 2;
+  }
+
+  /* Hero */
+  .hero {
+    padding: var(--spacing-lg) var(--spacing-sm);
+  }
+
+  .scroll-indicator {
+    display: none;
+  }
+
+  /* Section */
+  .section {
+    padding: var(--spacing-lg) 0;
+  }
+
+  /* Contact Links */
+  .contact-links {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  /* Modal */
   .modal-overlay {
     padding: 50px 10px 20px;
   }
@@ -1051,6 +1007,18 @@ a {
 }
 
 @media (max-width: 480px) {
+  .container {
+    padding: 0 var(--spacing-sm);
+  }
+
+  .works-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .skills-grid {
+    grid-template-columns: 1fr;
+  }
+
   .modal-info {
     grid-template-columns: 1fr;
   }
@@ -1063,11 +1031,11 @@ a {
        ======================================== -->
   <nav class="nav">
     <div class="nav-container">
-      <a href="index_single.html" class="nav-logo">aNan<span>_</span>Design</a>
+      <a href="#" class="nav-logo" onclick="navigateTo('works'); return false;">aNan<span>_</span>Design</a>
       
       <ul class="nav-links">
-        <li><a href="index_single.html" class="active">Works</a></li>
-        <li><a href="about.html">About</a></li>
+        <li><a href="#" class="active" data-page="works" onclick="navigateTo('works'); return false;">WORKS</a></li>
+        <li><a href="#" data-page="about" onclick="navigateTo('about'); return false;">ABOUT</a></li>
       </ul>
       
       <div class="nav-toggle">
@@ -1079,67 +1047,191 @@ a {
   </nav>
 
   <!-- ========================================
-       Hero Section
+       WORKS Page
        ======================================== -->
-  <section class="hero">
-    <div class="hero-content">
-      <h1 class="hero-title">
-        <span>MOTION DESIGNER</span>
-        aNan_Design
-      </h1>
-      <p class="hero-subtitle">3D Artist | 暗黑工业风 | 复古摇滚美学</p>
-      <a href="#works" class="hero-cta">View Portfolio</a>
-    </div>
-    
-    <div class="scroll-indicator">
-      <span>SCROLL</span>
-    </div>
-  </section>
-
-  <!-- ========================================
-       Works Section
-       ======================================== -->
-  <section id="works" class="section">
-    <div class="container">
-      <div class="section-header">
-        <h2>Selected Works</h2>
-        <p>视频动画 · 静帧作品 · 品牌视觉</p>
+  <div id="works-page" class="page-section">
+    <!-- Hero Section -->
+    <section class="hero">
+      <div class="hero-content">
+        <h1 class="hero-title">
+          <span>MOTION DESIGNER</span>
+          aNan_Design
+        </h1>
+        <p class="hero-subtitle">3D Artist | 暗黑工业风 | 复古摇滚美学</p>
+        <a href="#works" class="hero-cta" onclick="navigateTo('works'); smoothScrollToWorks(); return false;">View Portfolio</a>
       </div>
       
-      <!-- 作品网格容器 -->
-      <div id="works-container" class="works-grid">
-        <!-- JS动态生成 -->
+      <div class="scroll-indicator">
+        <span>SCROLL</span>
       </div>
-    </div>
-  </section>
+    </section>
+
+    <!-- Works Section -->
+    <section id="works" class="section">
+      <div class="container">
+        <div class="section-header">
+          <h2>Selected Works</h2>
+          <p>视频动画 · 静帧作品 · 品牌视觉</p>
+        </div>
+        
+        <!-- 分类筛选标签 -->
+        <div class="category-filter">
+          <button class="category-tab active" data-category="all" onclick="filterWorks('all')">
+            全部作品<span class="count">(13)</span>
+          </button>
+          <button class="category-tab" data-category="video" onclick="filterWorks('video')">
+            视频动画<span class="count">(8)</span>
+          </button>
+          <button class="category-tab" data-category="image" onclick="filterWorks('image')">
+            静帧作品<span class="count">(5)</span>
+          </button>
+        </div>
+        
+        <!-- 作品网格容器 -->
+        <div id="works-wrapper">
+          <!-- 主视觉大卡片区域 -->
+          <div id="works-featured" class="works-grid-featured">
+            <!-- JS动态生成 featured 卡片 -->
+          </div>
+          <!-- 后续作品网格 -->
+          <div id="works-container" class="works-grid">
+            <!-- JS动态生成 -->
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="contact-section">
+      <div class="container">
+        <div class="section-header">
+          <h2>Get In Touch</h2>
+          <p>合作咨询 · 创意交流 · 商务洽谈</p>
+        </div>
+        
+        <div class="contact-links">
+          <a href="mailto:3335774630@qq.com" class="contact-link">
+            <span class="icon">✉</span>
+            <span>3335774630@qq.com</span>
+          </a>
+        </div>
+      </div>
+    </section>
+  </div>
 
   <!-- ========================================
-       Contact Section
+       ABOUT Page
        ======================================== -->
-  <section class="contact-section">
-    <div class="container">
-      <div class="section-header">
-        <h2>Get In Touch</h2>
-        <p>合作咨询 · 创意交流 · 商务洽谈</p>
+  <div id="about-page" class="page-section hidden">
+    <!-- About Hero -->
+    <section class="about-hero section">
+      <div class="container">
+        <div class="about-avatar">DJ</div>
+        
+        <div class="about-intro">
+          <h1>邓健楠</h1>
+          <p class="title">三维动画设计师 / Motion Designer / 27岁</p>
+          
+          <p>
+            四年深耕3D视觉艺术，专注于将工业美学与创意叙事融合，创造具有强烈视觉冲击力的数字作品。
+            暗黑工业风与复古摇滚美学的结合，造就了独树一帜的设计语言。
+          </p>
+        </div>
       </div>
-      
-      <div class="contact-links">
-        <a href="mailto:3335774630@qq.com" class="contact-link">
-          <span class="icon">✉</span>
-          <span>3335774630@qq.com</span>
-        </a>
-        <!-- 社交媒体链接预留位置 -->
-        <!-- <a href="#" class="contact-link">
-          <span class="icon">◉</span>
-          <span>Behance</span>
-        </a>
-        <a href="#" class="contact-link">
-          <span class="icon">◉</span>
-          <span>Instagram</span>
-        </a> -->
+    </section>
+
+    <!-- Skills Section -->
+    <section class="skills-section section">
+      <div class="container">
+        <div class="section-header">
+          <h2>Core Skills</h2>
+          <p>专业能力 · 技术专长</p>
+        </div>
+        
+        <div class="skills-grid">
+          <div class="skill-category">
+            <h3>3D Design</h3>
+            <ul class="skill-list">
+              <li>3D场景搭建与建模</li>
+              <li>PBR材质制作与渲染</li>
+              <li>光影氛围营造</li>
+              <li>产品可视化</li>
+              <li>角色与道具设计</li>
+            </ul>
+          </div>
+          
+          <div class="skill-category">
+            <h3>Motion Design</h3>
+            <ul class="skill-list">
+              <li>动态图形设计</li>
+              <li>3D动画制作</li>
+              <li>视觉特效合成</li>
+              <li>品牌动态视觉</li>
+              <li>片头/片尾动画</li>
+            </ul>
+          </div>
+          
+          <div class="skill-category">
+            <h3>Art Direction</h3>
+            <ul class="skill-list">
+              <li>视觉风格定位</li>
+              <li>品牌视觉系统设计</li>
+              <li>创意概念开发</li>
+              <li>色彩与材质规划</li>
+              <li>项目视觉把控</li>
+            </ul>
+          </div>
+          
+          <div class="skill-category">
+            <h3>Creative Fields</h3>
+            <ul class="skill-list">
+              <li>工业风格设计</li>
+              <li>蒸汽朋克美学</li>
+              <li>暗黑艺术创作</li>
+              <li>复古摇滚视觉</li>
+              <li>节日主题创意</li>
+            </ul>
+          </div>
+        </div>
       </div>
-    </div>
-  </section>
+    </section>
+
+    <!-- Software Section -->
+    <section class="software-section section">
+      <div class="container">
+        <div class="section-header">
+          <h2>Software Proficiency</h2>
+          <p>熟练掌握以下工具</p>
+        </div>
+        
+        <div class="software-grid">
+          <div class="software-item">C4D</div>
+          <div class="software-item">Octane Render</div>
+          <div class="software-item">Photoshop</div>
+          <div class="software-item">After Effects</div>
+          <div class="software-item">DaVinci Resolve</div>
+          <div class="software-item">Substance Painter</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="contact-section">
+      <div class="container">
+        <div class="section-header">
+          <h2>Get In Touch</h2>
+          <p>期待与您合作</p>
+        </div>
+        
+        <div class="contact-links">
+          <a href="mailto:3335774630@qq.com" class="contact-link">
+            <span class="icon">✉</span>
+            <span>3335774630@qq.com</span>
+          </a>
+        </div>
+      </div>
+    </section>
+  </div>
 
   <!-- ========================================
        Footer
@@ -1195,6 +1287,16 @@ a {
 const worksData = {
   video: [
     {
+      id: 4,
+      title: "Keep Myself",
+      category: "Motion Design",
+      year: "2023",
+      thumbnail: "https://www.coze.cn/s/20Eu4JtOTy4/",
+      videoUrl: "https://www.coze.cn/s/20Eu4JtOTy4/",
+      description: "个人品牌视觉动画，探讨自我认同与坚持的主题，运用蒸汽朋克美学打造独特的视觉语言。",
+      featured: true
+    },
+    {
       id: 1,
       title: "燧发枪品宣",
       category: "Commercial",
@@ -1220,15 +1322,6 @@ const worksData = {
       thumbnail: "https://www.coze.cn/s/zvmfHal4Rhc/",
       videoUrl: "https://www.coze.cn/s/zvmfHal4Rhc/",
       description: "致敬经典科幻美剧《西部世界》的3D场景重建，探索人工智能与人类意识的边界。"
-    },
-    {
-      id: 4,
-      title: "Keep Myself",
-      category: "Motion Design",
-      year: "2023",
-      thumbnail: "https://www.coze.cn/s/20Eu4JtOTy4/",
-      videoUrl: "https://www.coze.cn/s/20Eu4JtOTy4/",
-      description: "个人品牌视觉动画，探讨自我认同与坚持的主题，运用蒸汽朋克美学打造独特的视觉语言。"
     },
     {
       id: 5,
@@ -1317,12 +1410,79 @@ const worksData = {
 };
 
 // ========================================
+// SPA Navigation
+// ========================================
+function navigateTo(page) {
+  const worksPage = document.getElementById('works-page');
+  const aboutPage = document.getElementById('about-page');
+  const navLinks = document.querySelectorAll('.nav-links a');
+  
+  // 关闭移动端菜单
+  const navLinksEl = document.querySelector('.nav-links');
+  const navToggle = document.querySelector('.nav-toggle');
+  if (navLinksEl) navLinksEl.classList.remove('active');
+  if (navToggle) navToggle.classList.remove('active');
+  
+  if (page === 'about') {
+    worksPage.classList.add('hidden');
+    aboutPage.classList.remove('hidden');
+    aboutPage.style.opacity = '0';
+    setTimeout(() => {
+      aboutPage.style.opacity = '1';
+    }, 10);
+    
+    // 更新导航高亮
+    navLinks.forEach(link => {
+      link.classList.remove('active');
+      if (link.dataset.page === 'about') {
+        link.classList.add('active');
+      }
+    });
+    
+    // 滚动到顶部
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  } else {
+    aboutPage.classList.add('hidden');
+    worksPage.classList.remove('hidden');
+    worksPage.style.opacity = '0';
+    setTimeout(() => {
+      worksPage.style.opacity = '1';
+    }, 10);
+    
+    // 更新导航高亮
+    navLinks.forEach(link => {
+      link.classList.remove('active');
+      if (link.dataset.page === 'works') {
+        link.classList.add('active');
+      }
+    });
+    
+    // 滚动到顶部
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+  
+  // 更新URL哈希
+  history.pushState(null, '', '#' + page);
+}
+
+// ========================================
+// 平滑滚动到作品区域
+// ========================================
+function smoothScrollToWorks() {
+  const worksSection = document.getElementById('works');
+  if (worksSection) {
+    setTimeout(() => {
+      worksSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }, 100);
+  }
+}
+
+// ========================================
 // DOM 加载完成后初始化
 // ========================================
 document.addEventListener('DOMContentLoaded', function() {
-  initNavigation();
   initMobileMenu();
-  initScrollEffects();
+  initHashNavigation();
   
   // 如果在首页，加载作品网格
   if (document.getElementById('works-container')) {
@@ -1331,21 +1491,24 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 // ========================================
-// 导航功能
+// Hash导航处理
 // ========================================
-function initNavigation() {
-  // 获取当前页面路径，高亮对应导航项
-  const currentPath = window.location.pathname;
-  const navLinks = document.querySelectorAll('.nav-links a');
+function initHashNavigation() {
+  // 检查URL哈希
+  const hash = window.location.hash.replace('#', '');
+  if (hash === 'about') {
+    navigateTo('about');
+  } else {
+    navigateTo('works');
+  }
   
-  navLinks.forEach(link => {
-    const href = link.getAttribute('href');
-    if (currentPath.includes(href) && href !== 'index_single.html') {
-      link.classList.add('active');
-    } else if (currentPath === '/' || currentPath.includes('index_single.html') || currentPath === '') {
-      if (href === 'index_single.html') {
-        link.classList.add('active');
-      }
+  // 监听hash变化
+  window.addEventListener('hashchange', function() {
+    const hash = window.location.hash.replace('#', '');
+    if (hash === 'about') {
+      navigateTo('about');
+    } else {
+      navigateTo('works');
     }
   });
 }
@@ -1362,58 +1525,7 @@ function initMobileMenu() {
       navLinks.classList.toggle('active');
       this.classList.toggle('active');
     });
-    
-    // 点击链接后关闭菜单
-    navLinks.querySelectorAll('a').forEach(link => {
-      link.addEventListener('click', () => {
-        navLinks.classList.remove('active');
-        navToggle.classList.remove('active');
-      });
-    });
   }
-}
-
-// ========================================
-// 滚动效果
-// ========================================
-function initScrollEffects() {
-  // 导航栏滚动效果
-  const nav = document.querySelector('.nav');
-  let lastScroll = 0;
-  
-  window.addEventListener('scroll', () => {
-    const currentScroll = window.pageYOffset;
-    
-    // 添加/移除滚动阴影
-    if (currentScroll > 50) {
-      nav.classList.add('scrolled');
-    } else {
-      nav.classList.remove('scrolled');
-    }
-    
-    lastScroll = currentScroll;
-  });
-  
-  // 滚动显示动画
-  const observerOptions = {
-    threshold: 0.1,
-    rootMargin: '0px 0px -50px 0px'
-  };
-  
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        entry.target.classList.add('visible');
-        observer.unobserve(entry.target);
-      }
-    });
-  }, observerOptions);
-  
-  // 观察需要动画的元素
-  document.querySelectorAll('.work-card, .skill-category, .software-item').forEach(el => {
-    el.classList.add('fade-in');
-    observer.observe(el);
-  });
 }
 
 // ========================================
@@ -1421,7 +1533,8 @@ function initScrollEffects() {
 // ========================================
 function loadWorksGrid() {
   const container = document.getElementById('works-container');
-  if (!container) return;
+  const featuredContainer = document.getElementById('works-featured');
+  if (!container || !featuredContainer) return;
   
   // 合并视频和图片作品
   const allWorks = [
@@ -1429,13 +1542,83 @@ function loadWorksGrid() {
     ...worksData.image.map(w => ({...w, type: 'image'}))
   ];
   
+  // 找到 featured 作品
+  const featuredWork = allWorks.find(w => w.featured);
+  
+  // 渲染 Featured 大卡片
+  if (featuredWork) {
+    featuredContainer.innerHTML = renderFeaturedCard(featuredWork);
+    featuredContainer.style.display = 'grid';
+  } else {
+    featuredContainer.style.display = 'none';
+  }
+  
+  // 过滤掉 featured 作品，渲染剩余作品
+  const otherWorks = allWorks.filter(w => !w.featured);
+  
   // 按ID排序
-  allWorks.sort((a, b) => a.id - b.id);
+  otherWorks.sort((a, b) => a.id - b.id);
   
   // 生成HTML
-  container.innerHTML = allWorks.map(work => `
+  container.innerHTML = otherWorks.map(work => renderWorkCard(work)).join('');
+  
+  // 添加点击事件 - 打开模态框
+  container.querySelectorAll('.work-card').forEach(card => {
+    card.addEventListener('click', () => {
+      const id = parseInt(card.dataset.id);
+      const type = card.dataset.type;
+      openWorkModal(id, type);
+    });
+  });
+  
+  // Featured 卡片点击事件
+  featuredContainer.querySelectorAll('.work-card').forEach(card => {
+    card.addEventListener('click', () => {
+      const id = parseInt(card.dataset.id);
+      const type = card.dataset.type;
+      openWorkModal(id, type);
+    });
+  });
+}
+
+// ========================================
+// 渲染 Featured 卡片
+// ========================================
+function renderFeaturedCard(work) {
+  const badge = work.type === 'video' 
+    ? '<span class="video-badge">VIDEO</span>' 
+    : '<span class="video-badge" style="background: var(--color-accent-silver);">IMAGE</span>';
+  
+  return `
+    <article class="work-card featured ${work.type}" data-id="${work.id}" data-type="${work.type}">
+      <span class="featured-badge">FEATURED</span>
+      ${badge}
+      <div class="work-thumbnail">
+        ${work.thumbnail 
+          ? `<img src="${work.thumbnail}" alt="${work.title}" loading="eager">`
+          : `<div class="placeholder">${work.type === 'video' ? '▶' : '◼'}</div>`
+        }
+        <div class="play-icon"></div>
+      </div>
+      <div class="work-info">
+        <h3>${work.title}</h3>
+        <p>${work.category} / ${work.year}</p>
+      </div>
+    </article>
+  `;
+}
+
+// ========================================
+// 渲染标准卡片
+// ========================================
+function renderWorkCard(work) {
+  const badge = work.type === 'video' 
+    ? '<span class="video-badge">VIDEO</span>' 
+    : '<span class="video-badge" style="background: var(--color-accent-silver);">IMAGE</span>';
+  
+  return `
     <article class="work-card ${work.type}" data-id="${work.id}" data-type="${work.type}">
-      ${work.type === 'video' ? '<span class="video-badge">VIDEO</span>' : '<span class="video-badge" style="background: var(--color-accent-silver);">IMAGE</span>'}
+      ${badge}
       <div class="work-thumbnail">
         ${work.thumbnail 
           ? `<img src="${work.thumbnail}" alt="${work.title}" loading="lazy">`
@@ -1448,10 +1631,76 @@ function loadWorksGrid() {
         <p>${work.category} / ${work.year}</p>
       </div>
     </article>
-  `).join('');
+  `;
+}
+
+// ========================================
+// 分类筛选功能
+// ========================================
+let currentCategory = 'all';
+
+function filterWorks(category) {
+  currentCategory = category;
+  const container = document.getElementById('works-container');
+  const featuredContainer = document.getElementById('works-featured');
+  if (!container || !featuredContainer) return;
   
-  // 添加点击事件 - 打开模态框
+  // 更新标签高亮
+  document.querySelectorAll('.category-tab').forEach(tab => {
+    tab.classList.remove('active');
+    if (tab.dataset.category === category) {
+      tab.classList.add('active');
+    }
+  });
+  
+  // 合并所有作品
+  const allWorks = [
+    ...worksData.video.map(w => ({...w, type: 'video'})),
+    ...worksData.image.map(w => ({...w, type: 'image'}))
+  ];
+  
+  // 根据分类过滤
+  let filteredWorks = category === 'all' 
+    ? allWorks 
+    : allWorks.filter(work => work.type === category);
+  
+  // 只有"全部作品"时才显示 featured 大卡片
+  if (category === 'all') {
+    // 找到 featured 作品
+    const featuredWork = filteredWorks.find(w => w.featured);
+    
+    if (featuredWork) {
+      // 渲染 Featured 大卡片
+      featuredContainer.innerHTML = renderFeaturedCard(featuredWork);
+      featuredContainer.style.display = 'grid';
+      
+      // 过滤掉 featured 作品，渲染剩余作品
+      const otherWorks = filteredWorks.filter(w => !w.featured);
+      otherWorks.sort((a, b) => a.id - b.id);
+      container.innerHTML = otherWorks.map(work => renderWorkCard(work)).join('');
+    } else {
+      featuredContainer.style.display = 'none';
+      filteredWorks.sort((a, b) => a.id - b.id);
+      container.innerHTML = filteredWorks.map(work => renderWorkCard(work)).join('');
+    }
+  } else {
+    // 非全部分类时隐藏 featured 区域，使用标准布局
+    featuredContainer.style.display = 'none';
+    filteredWorks.sort((a, b) => a.id - b.id);
+    container.innerHTML = filteredWorks.map(work => renderWorkCard(work)).join('');
+  }
+  
+  // 添加点击事件
   container.querySelectorAll('.work-card').forEach(card => {
+    card.addEventListener('click', () => {
+      const id = parseInt(card.dataset.id);
+      const type = card.dataset.type;
+      openWorkModal(id, type);
+    });
+  });
+  
+  // Featured 卡片点击事件
+  featuredContainer.querySelectorAll('.work-card').forEach(card => {
     card.addEventListener('click', () => {
       const id = parseInt(card.dataset.id);
       const type = card.dataset.type;
@@ -1540,110 +1789,17 @@ document.getElementById('work-modal').addEventListener('click', function(e) {
 });
 
 // ========================================
-// 获取URL参数
-// ========================================
-function getUrlParams() {
-  const params = new URLSearchParams(window.location.search);
-  return {
-    id: params.get('id'),
-    type: params.get('type')
-  };
-}
-
-// ========================================
-// 加载作品详情
-// ========================================
-function loadWorkDetail() {
-  const { id, type } = getUrlParams();
-  if (!id) {
-    window.location.href = 'index_single.html';
-    return;
-  }
-  
-  // 找到对应作品
-  const works = type === 'video' ? worksData.video : worksData.image;
-  const work = works.find(w => w.id == id);
-  
-  if (!work) {
-    window.location.href = 'index_single.html';
-    return;
-  }
-  
-  // 填充页面内容
-  document.getElementById('work-title').textContent = work.title;
-  document.getElementById('work-category').textContent = work.category;
-  document.getElementById('work-year').textContent = work.year;
-  document.getElementById('work-description').textContent = work.description;
-  
-  // 设置媒体展示
-  const mediaContainer = document.getElementById('media-container');
-  if (type === 'video') {
-    // 判断是否为Vimeo链接
-    if (work.videoUrl && work.videoUrl.includes('vimeo.com')) {
-      mediaContainer.innerHTML = `
-        <div class="video-player" style="padding: 56.25% 0 0 0; position: relative;">
-          <iframe src="${work.videoUrl}" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;"></iframe>
-        </div>
-      `;
-    } else {
-      mediaContainer.innerHTML = `
-        <div class="video-player">
-          <video controls autoplay loop muted playsinline style="width: 100%; height: 100%; object-fit: cover; background: #000;">
-            <source src="${work.videoUrl || work.thumbnail}" type="video/mp4">
-            您的浏览器不支持视频播放
-          </video>
-        </div>
-      `;
-    }
-  } else {
-    mediaContainer.innerHTML = `
-      <div class="image-gallery">
-        <img src="${work.imageUrl || work.thumbnail}" alt="${work.title}" style="width: 100%; height: auto; object-fit: contain; background: #000;">
-      </div>
-    `;
-  }
-  
-  // 更新页面标题
-  document.title = `${work.title} - aNan_Design`;
-}
-
-// ========================================
-// 平滑滚动到锚点
-// ========================================
-function smoothScrollTo(target) {
-  const element = document.querySelector(target);
-  if (element) {
-    element.scrollIntoView({
-      behavior: 'smooth',
-      block: 'start'
-    });
-  }
-}
-
-// ========================================
 // 键盘导航
 // ========================================
 document.addEventListener('keydown', function(e) {
-  // ESC 关闭模态框或返回上一页
+  // ESC 关闭模态框
   if (e.key === 'Escape') {
     const modal = document.getElementById('work-modal');
     if (modal && modal.classList.contains('active')) {
       closeModal();
-    } else {
-      const backBtn = document.querySelector('.back-button');
-      if (backBtn) {
-        backBtn.click();
-      }
     }
   }
 });
-
-// ========================================
-// 作品详情页初始化
-// ========================================
-if (window.location.pathname.includes('work.html')) {
-  document.addEventListener('DOMContentLoaded', loadWorkDetail);
-}
 
 // ========================================
 // 导出数据供外部使用
@@ -1653,7 +1809,8 @@ window.aNanPortfolio = {
   getWorkById: function(id, type) {
     const works = type === 'video' ? worksData.video : worksData.image;
     return works.find(w => w.id == id);
-  }
+  },
+  navigateTo: navigateTo
 };
   </script>
 </body>
