@@ -384,23 +384,54 @@ a {
 }
 
 /* ========================================
-   Works Grid - 混合布局（统一3:4竖版）
+   Works Grid - Pinterest风格瀑布流布局
    ======================================== */
-.works-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: var(--spacing-md);
+
+/* 主视觉区域 - CSS Columns瀑布流 */
+.works-grid-featured {
+  column-count: 3;
+  column-gap: var(--spacing-md);
+  margin-bottom: var(--spacing-lg);
 }
 
-/* 主视觉大卡片区域 - 左侧大卡片(占2列宽+跨2行) + 右侧4个小卡片 */
-.works-grid-featured {
-  display: grid;
-  grid-template-columns: 2fr 1fr 1fr;
-  gap: var(--spacing-md);
+.works-grid-featured .work-card {
+  break-inside: avoid;
   margin-bottom: var(--spacing-md);
 }
 
-/* 标准竖版卡片 - 3:4比例 */
+/* 主视觉大卡片 - 跨越多列 */
+.work-card.featured {
+  column-span: all;
+  display: block;
+  aspect-ratio: 16/9;
+  max-height: 500px;
+  border: 2px solid var(--color-accent-red);
+  position: relative;
+}
+
+.work-card.featured .work-thumbnail {
+  aspect-ratio: 16/9;
+  height: 100%;
+  max-height: 450px;
+}
+
+.work-card.featured:hover {
+  transform: translateY(-8px) scale(1.02);
+  box-shadow: 0 0 40px rgba(178, 34, 34, 0.6), 0 0 80px rgba(178, 34, 34, 0.3);
+}
+
+/* 标准瀑布流网格 - 3列 */
+.works-grid {
+  column-count: 3;
+  column-gap: var(--spacing-md);
+}
+
+.works-grid .work-card {
+  break-inside: avoid;
+  margin-bottom: var(--spacing-md);
+}
+
+/* 标准竖版卡片 - 高度自适应 */
 .work-card {
   position: relative;
   background: var(--color-bg-card);
@@ -408,27 +439,13 @@ a {
   overflow: hidden;
   cursor: pointer;
   transition: var(--transition-medium);
-  aspect-ratio: 3/4;
+  /* Pinterest风格：不固定aspect-ratio，让内容自然高度 */
 }
 
 .work-card:hover {
   border-color: var(--color-accent-red);
   transform: translateY(-5px);
   box-shadow: var(--shadow-glow-red);
-}
-
-/* 主视觉大卡片样式 - 占1列，跨越2行，3:4竖版 */
-.work-card.featured {
-  grid-column: span 1;
-  grid-row: span 2;
-  aspect-ratio: 3/4;
-  border: 2px solid var(--color-accent-red);
-  position: relative;
-}
-
-.work-card.featured:hover {
-  transform: translateY(-8px) scale(1.02);
-  box-shadow: 0 0 40px rgba(178, 34, 34, 0.6), 0 0 80px rgba(178, 34, 34, 0.3);
 }
 
 /* Featured 标签 */
@@ -956,21 +973,32 @@ a {
     visibility: visible;
   }
 
-  /* Works Grid - 响应式 */
-  .works-grid {
-    grid-template-columns: repeat(2, 1fr);
+  /* Pinterest瀑布流 - 平板2列 */
+  .works-grid-featured {
+    column-count: 2;
     gap: var(--spacing-sm);
   }
-
-  /* Featured 区域 - 平板保持大卡片 */
-  .works-grid-featured {
-    grid-template-columns: 2fr 1fr 1fr;
+  
+  .works-grid-featured .work-card {
     margin-bottom: var(--spacing-sm);
   }
 
+  .works-grid {
+    column-count: 2;
+    gap: var(--spacing-sm);
+  }
+
+  .works-grid .work-card {
+    margin-bottom: var(--spacing-sm);
+  }
+
+  /* 主视觉大卡片 - 平板保持横向 */
   .work-card.featured {
-    grid-column: span 1;
-    grid-row: span 2;
+    max-height: 350px;
+  }
+  
+  .work-card.featured .work-thumbnail {
+    max-height: 300px;
   }
 
   /* Hero */
@@ -1012,20 +1040,19 @@ a {
     padding: 0 var(--spacing-sm);
   }
 
-  /* Featured 区域 - 手机端主视觉占整行 */
-  .works-grid-featured {
-    grid-template-columns: 1fr;
-    gap: var(--spacing-sm);
-  }
-
-  .work-card.featured {
-    grid-column: span 1;
-    grid-row: span 1;
-    aspect-ratio: 3/4;
-  }
-
+  /* Pinterest瀑布流 - 手机单列 */
+  .works-grid-featured,
   .works-grid {
-    grid-template-columns: 1fr;
+    column-count: 1;
+  }
+
+  /* 主视觉大卡片 - 手机端保持横向 */
+  .work-card.featured {
+    max-height: 250px;
+  }
+  
+  .work-card.featured .work-thumbnail {
+    max-height: 200px;
   }
 
   .skills-grid {
@@ -1100,13 +1127,13 @@ a {
           </button>
         </div>
         
-        <!-- 作品网格容器 -->
+        <!-- Pinterest瀑布流布局 -->
         <div id="works-wrapper">
-          <!-- 主视觉大卡片区域 -->
+          <!-- 主视觉大卡片区域 - column-span全宽 -->
           <div id="works-featured" class="works-grid-featured">
             <!-- JS动态生成 featured 卡片 -->
           </div>
-          <!-- 后续作品网格 -->
+          <!-- 后续作品瀑布流网格 - 3列 -->
           <div id="works-container" class="works-grid">
             <!-- JS动态生成 -->
           </div>
@@ -1542,7 +1569,7 @@ function initMobileMenu() {
 }
 
 // ========================================
-// 加载作品网格
+// 加载作品网格 - Pinterest瀑布流布局
 // ========================================
 function loadWorksGrid() {
   const container = document.getElementById('works-container');
@@ -1558,10 +1585,10 @@ function loadWorksGrid() {
   // 找到 featured 作品
   const featuredWork = allWorks.find(w => w.featured);
   
-  // 渲染 Featured 大卡片
+  // 渲染 Featured 大卡片 (Pinterest瀑布流，column-span)
   if (featuredWork) {
     featuredContainer.innerHTML = renderFeaturedCard(featuredWork);
-    featuredContainer.style.display = 'grid';
+    featuredContainer.style.display = 'block';
   } else {
     featuredContainer.style.display = 'none';
   }
@@ -1648,7 +1675,7 @@ function renderWorkCard(work) {
 }
 
 // ========================================
-// 分类筛选功能
+// 分类筛选功能 - Pinterest瀑布流布局
 // ========================================
 let currentCategory = 'all';
 
@@ -1683,9 +1710,9 @@ function filterWorks(category) {
     const featuredWork = filteredWorks.find(w => w.featured);
     
     if (featuredWork) {
-      // 渲染 Featured 大卡片
+      // 渲染 Featured 大卡片 (CSS columns瀑布流)
       featuredContainer.innerHTML = renderFeaturedCard(featuredWork);
-      featuredContainer.style.display = 'grid';
+      featuredContainer.style.display = 'block';
       
       // 过滤掉 featured 作品，渲染剩余作品
       const otherWorks = filteredWorks.filter(w => !w.featured);
@@ -1697,7 +1724,7 @@ function filterWorks(category) {
       container.innerHTML = filteredWorks.map(work => renderWorkCard(work)).join('');
     }
   } else {
-    // 非全部分类时隐藏 featured 区域，使用标准布局
+    // 非全部分类时隐藏 featured 区域
     featuredContainer.style.display = 'none';
     filteredWorks.sort((a, b) => a.id - b.id);
     container.innerHTML = filteredWorks.map(work => renderWorkCard(work)).join('');
