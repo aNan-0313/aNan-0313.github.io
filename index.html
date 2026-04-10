@@ -387,21 +387,18 @@ a {
    Works Grid - Pinterest风格瀑布流布局
    ======================================== */
 
-/* 主视觉区域 - CSS Columns瀑布流 */
+/* 主视觉区域 - 单独展示featured作品 */
 .works-grid-featured {
-  column-count: 3;
-  column-gap: var(--spacing-md);
   margin-bottom: var(--spacing-lg);
+  display: block;
 }
 
 .works-grid-featured .work-card {
-  break-inside: avoid;
-  margin-bottom: var(--spacing-md);
+  margin-bottom: 0;
 }
 
 /* 主视觉大卡片 - 左右布局：左边3:4竖版图+右边介绍 */
 .work-card.featured {
-  column-span: all;
   display: flex;
   flex-direction: row;
   aspect-ratio: auto;
@@ -1054,14 +1051,9 @@ a {
     visibility: visible;
   }
 
-  /* Pinterest瀑布流 - 平板2列 */
+  /* 主视觉区域 - 平板保持flex布局 */
   .works-grid-featured {
-    column-count: 2;
-    gap: var(--spacing-sm);
-  }
-  
-  .works-grid-featured .work-card {
-    margin-bottom: var(--spacing-sm);
+    display: block;
   }
 
   .works-grid {
@@ -1121,10 +1113,9 @@ a {
     padding: 0 var(--spacing-sm);
   }
 
-  /* Pinterest瀑布流 - 手机单列 */
-  .works-grid-featured,
-  .works-grid {
-    column-count: 1;
+  /* 主视觉区域 - 手机保持flex布局 */
+  .works-grid-featured {
+    display: block;
   }
 
   /* 主视觉大卡片 - 手机端保持竖版 */
@@ -1414,7 +1405,7 @@ const worksData = {
       year: "2023",
       thumbnail: "https://www.coze.cn/s/20Eu4JtOTy4/",
       videoUrl: "https://www.coze.cn/s/20Eu4JtOTy4/",
-      description: "蒸汽朋克美学自19世纪工业革命的废墟中诞生，它将维多利亚时代的优雅与机械时代的粗犷熔于一炉。这件作品的灵感来源于对"自我"这个命题的叩问：在齿轮咬合、蒸汽升腾的机械宇宙中，"我"究竟是一台被设定程序的永动机，还是敢于跳出既定轨道的那颗螺丝钉？画面里，暖橙色的局部打光穿透深灰的暗黑色调，齿轮咬合、仪表指针颤动、传动皮带绷紧又释放——每一个机械元素的运动轨迹，都在诉说对"程序"的挣脱。",
+      description: "蒸汽朋克美学自19世纪工业革命的废墟中诞生，它将维多利亚时代的优雅与机械时代的粗犷熔于一炉。这件作品的灵感来源于对「自我」这个命题的叩问：在齿轮咬合、蒸汽升腾的机械宇宙中，「我」究竟是一台被设定程序的永动机，还是敢于跳出既定轨道的那颗螺丝钉？画面里，暖橙色的局部打光穿透深灰的暗黑色调，齿轮咬合、仪表指针颤动、传动皮带绷紧又释放——每一个机械元素的运动轨迹，都在诉说对「程序」的挣脱。",
       featured: true
     },
     {
