@@ -897,6 +897,164 @@ a {
     opacity: 1;
   }
 }
+
+/* ========================================
+   Modal Styles
+   ======================================== */
+.modal-overlay {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.95);
+  z-index: 2000;
+  overflow-y: auto;
+  padding: 60px 20px 40px;
+}
+
+.modal-overlay.active {
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+}
+
+.modal-content {
+  background: var(--color-bg-card);
+  border: 1px solid var(--color-border);
+  max-width: 1000px;
+  width: 100%;
+  margin: 0 auto;
+  position: relative;
+  animation: modalFadeIn 0.3s ease;
+}
+
+@keyframes modalFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.modal-close {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  width: 40px;
+  height: 40px;
+  background: var(--color-bg-secondary);
+  border: 1px solid var(--color-border);
+  color: var(--color-text);
+  font-size: 1.5rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: var(--transition-fast);
+  z-index: 10;
+}
+
+.modal-close:hover {
+  background: var(--color-accent-red);
+  border-color: var(--color-accent-red);
+}
+
+.modal-media {
+  width: 100%;
+  aspect-ratio: 16/9;
+  background: var(--color-bg-secondary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+.modal-media iframe {
+  width: 100%;
+  height: 100%;
+  border: none;
+}
+
+.modal-media img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  background: #000;
+}
+
+.modal-body {
+  padding: var(--spacing-md);
+}
+
+.modal-header {
+  margin-bottom: var(--spacing-md);
+  padding-right: 50px;
+}
+
+.modal-header h2 {
+  margin-bottom: var(--spacing-xs);
+}
+
+.modal-header .modal-meta {
+  font-family: var(--font-heading);
+  font-size: 0.9rem;
+  color: var(--color-accent-red);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.modal-description {
+  color: var(--color-text-secondary);
+  line-height: 1.8;
+}
+
+.modal-info {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: var(--spacing-md);
+  padding: var(--spacing-md);
+  background: var(--color-bg-secondary);
+  border: 1px solid var(--color-border);
+  margin-top: var(--spacing-md);
+}
+
+.modal-info-item h4 {
+  font-size: 0.8rem;
+  color: var(--color-text-secondary);
+  margin-bottom: 5px;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+
+.modal-info-item p {
+  color: var(--color-text);
+  font-size: 1rem;
+}
+
+@media (max-width: 768px) {
+  .modal-overlay {
+    padding: 50px 10px 20px;
+  }
+  
+  .modal-content {
+    margin: 0;
+  }
+  
+  .modal-info {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media (max-width: 480px) {
+  .modal-info {
+    grid-template-columns: 1fr;
+  }
+}
   </style>
 </head>
 <body>
@@ -991,6 +1149,39 @@ a {
       <p>© 2024 <span>aNan_Design</span>. All Rights Reserved.</p>
     </div>
   </footer>
+
+  <!-- ========================================
+       Modal - Work Detail
+       ======================================== -->
+  <div id="work-modal" class="modal-overlay">
+    <div class="modal-content">
+      <button class="modal-close" onclick="closeModal()">&times;</button>
+      <div class="modal-media" id="modal-media">
+        <!-- 动态内容 -->
+      </div>
+      <div class="modal-body">
+        <div class="modal-header">
+          <h2 id="modal-title">作品标题</h2>
+          <span class="modal-meta" id="modal-meta">类别 / 年份</span>
+        </div>
+        <p class="modal-description" id="modal-description">作品描述内容</p>
+        <div class="modal-info">
+          <div class="modal-info-item">
+            <h4>Category</h4>
+            <p id="modal-category">-</p>
+          </div>
+          <div class="modal-info-item">
+            <h4>Year</h4>
+            <p id="modal-year">-</p>
+          </div>
+          <div class="modal-info-item">
+            <h4>Type</h4>
+            <p id="modal-type">-</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 
   <script>
 /* ========================================
@@ -1259,15 +1450,94 @@ function loadWorksGrid() {
     </article>
   `).join('');
   
-  // 添加点击事件
+  // 添加点击事件 - 打开模态框
   container.querySelectorAll('.work-card').forEach(card => {
     card.addEventListener('click', () => {
-      const id = card.dataset.id;
+      const id = parseInt(card.dataset.id);
       const type = card.dataset.type;
-      window.location.href = `work.html?id=${id}&type=${type}`;
+      openWorkModal(id, type);
     });
   });
 }
+
+// ========================================
+// 打开作品模态框
+// ========================================
+function openWorkModal(id, type) {
+  // 找到对应作品
+  const works = type === 'video' ? worksData.video : worksData.image;
+  const work = works.find(w => w.id == id);
+  
+  if (!work) return;
+  
+  // 填充内容
+  document.getElementById('modal-title').textContent = work.title;
+  document.getElementById('modal-meta').textContent = `${work.category} / ${work.year}`;
+  document.getElementById('modal-description').textContent = work.description;
+  document.getElementById('modal-category').textContent = work.category;
+  document.getElementById('modal-year').textContent = work.year;
+  document.getElementById('modal-type').textContent = type === 'video' ? 'Video' : 'Image';
+  
+  // 设置媒体内容
+  const mediaContainer = document.getElementById('modal-media');
+  
+  if (type === 'video') {
+    // 判断是否为Vimeo链接
+    if (work.videoUrl && work.videoUrl.includes('vimeo.com')) {
+      mediaContainer.innerHTML = `<iframe src="${work.videoUrl}" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>`;
+    } else if (work.videoUrl) {
+      // 其他视频链接显示播放器
+      mediaContainer.innerHTML = `
+        <video controls autoplay loop muted playsinline style="width: 100%; height: 100%; object-fit: cover; background: #000;">
+          <source src="${work.videoUrl}" type="video/mp4">
+          您的浏览器不支持视频播放
+        </video>
+      `;
+    } else {
+      // 占位符 - 显示缩略图
+      mediaContainer.innerHTML = `
+        <img src="${work.thumbnail}" alt="${work.title}">
+        <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 80px; height: 80px; border: 2px solid var(--color-accent-red); border-radius: 50%; display: flex; align-items: center; justify-content: center;">
+          <div style="width: 0; height: 0; border-left: 20px solid var(--color-accent-red); border-top: 12px solid transparent; border-bottom: 12px solid transparent; margin-left: 5px;"></div>
+        </div>
+      `;
+    }
+  } else {
+    // 图片作品
+    mediaContainer.innerHTML = `<img src="${work.imageUrl || work.thumbnail}" alt="${work.title}">`;
+  }
+  
+  // 显示模态框
+  const modal = document.getElementById('work-modal');
+  modal.classList.add('active');
+  document.body.style.overflow = 'hidden';
+}
+
+// ========================================
+// 关闭模态框
+// ========================================
+function closeModal() {
+  const modal = document.getElementById('work-modal');
+  modal.classList.remove('active');
+  document.body.style.overflow = '';
+  
+  // 停止视频播放
+  const iframe = modal.querySelector('iframe');
+  if (iframe) {
+    iframe.src = iframe.src;
+  }
+  const video = modal.querySelector('video');
+  if (video) {
+    video.pause();
+  }
+}
+
+// 点击模态框背景关闭
+document.getElementById('work-modal').addEventListener('click', function(e) {
+  if (e.target === this) {
+    closeModal();
+  }
+});
 
 // ========================================
 // 获取URL参数
@@ -1354,11 +1624,16 @@ function smoothScrollTo(target) {
 // 键盘导航
 // ========================================
 document.addEventListener('keydown', function(e) {
-  // ESC 返回上一页
+  // ESC 关闭模态框或返回上一页
   if (e.key === 'Escape') {
-    const backBtn = document.querySelector('.back-button');
-    if (backBtn) {
-      backBtn.click();
+    const modal = document.getElementById('work-modal');
+    if (modal && modal.classList.contains('active')) {
+      closeModal();
+    } else {
+      const backBtn = document.querySelector('.back-button');
+      if (backBtn) {
+        backBtn.click();
+      }
     }
   }
 });
