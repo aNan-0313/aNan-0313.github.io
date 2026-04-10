@@ -399,21 +399,21 @@ a {
   margin-bottom: var(--spacing-md);
 }
 
-/* 主视觉大卡片 - 左右布局：左边4:3图+右边介绍 */
+/* 主视觉大卡片 - 左右布局：左边3:4竖版图+右边介绍 */
 .work-card.featured {
   column-span: all;
   display: flex;
   flex-direction: row;
   aspect-ratio: auto;
-  height: 350px;
+  height: auto;
   border: 2px solid var(--color-accent-red);
   position: relative;
+  overflow: hidden;
 }
 
 .work-card.featured .work-thumbnail {
-  width: 50%;
-  height: 100%;
-  aspect-ratio: auto;
+  width: 40%;
+  aspect-ratio: 3/4;
   flex-shrink: 0;
 }
 
@@ -497,11 +497,20 @@ a {
   cursor: pointer;
   transition: var(--transition-medium);
   aspect-ratio: 3/4;
+  display: flex;
+  flex-direction: column;
 }
 
 .work-card .work-thumbnail {
-  aspect-ratio: 1/1;
+  width: 100%;
+  height: 85%;
   flex-shrink: 0;
+}
+
+.work-card .work-thumbnail img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 
 .work-card:hover {
