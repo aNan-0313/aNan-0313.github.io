@@ -431,7 +431,7 @@ a {
   margin-bottom: var(--spacing-md);
 }
 
-/* 标准竖版卡片 - 高度自适应 */
+/* 标准竖版卡片 - 3:4竖版比例 */
 .work-card {
   position: relative;
   background: var(--color-bg-card);
@@ -439,7 +439,12 @@ a {
   overflow: hidden;
   cursor: pointer;
   transition: var(--transition-medium);
-  /* Pinterest风格：不固定aspect-ratio，让内容自然高度 */
+  aspect-ratio: 3/4;
+}
+
+.work-card .work-thumbnail {
+  aspect-ratio: 1/1;
+  flex-shrink: 0;
 }
 
 .work-card:hover {
@@ -484,7 +489,7 @@ a {
 /* Work Thumbnail */
 .work-thumbnail {
   width: 100%;
-  aspect-ratio: 16/10;
+  height: 85%;
   background: var(--color-bg-secondary);
   display: flex;
   align-items: center;
@@ -545,19 +550,29 @@ a {
 
 /* Work Info */
 .work-info {
-  padding: var(--spacing-md);
-  background: linear-gradient(to top, var(--color-bg-card), transparent);
+  height: 15%;
+  padding: 0.8rem;
+  background: var(--color-bg-card);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 
 .work-info h3 {
   color: var(--color-text);
-  margin-bottom: var(--spacing-xs);
-  font-size: 1.1rem;
+  margin-bottom: 0.2rem;
+  font-size: 1rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .work-info p {
-  font-size: 0.9rem;
+  font-size: 0.8rem;
   color: var(--color-text-secondary);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 /* ========================================
