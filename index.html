@@ -399,20 +399,77 @@ a {
   margin-bottom: var(--spacing-md);
 }
 
-/* 主视觉大卡片 - 跨越全宽，3:4竖版比例 */
+/* 主视觉大卡片 - 左右布局：左边4:3图+右边介绍 */
 .work-card.featured {
   column-span: all;
-  display: block;
-  aspect-ratio: 3/4;
-  max-height: 600px;
+  display: flex;
+  flex-direction: row;
+  aspect-ratio: auto;
+  height: 350px;
   border: 2px solid var(--color-accent-red);
   position: relative;
 }
 
 .work-card.featured .work-thumbnail {
-  aspect-ratio: 3/4;
+  width: 50%;
   height: 100%;
-  max-height: 550px;
+  aspect-ratio: auto;
+  flex-shrink: 0;
+}
+
+.work-card.featured .work-thumbnail img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.work-card.featured .work-info {
+  width: 50%;
+  height: 100%;
+  padding: 2rem;
+  background: var(--color-bg-card);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+.work-card.featured .work-info h3 {
+  font-size: 1.8rem;
+  margin-bottom: 0.5rem;
+}
+
+.work-card.featured .work-info .meta {
+  font-size: 0.9rem;
+  color: var(--color-accent-red);
+  margin-bottom: 1rem;
+  letter-spacing: 0.1em;
+}
+
+.work-card.featured .work-info .description {
+  font-size: 1rem;
+  color: var(--color-text-secondary);
+  line-height: 1.8;
+  white-space: normal;
+  overflow: visible;
+  text-overflow: unset;
+  display: -webkit-box;
+  -webkit-line-clamp: 4;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.work-card.featured .featured-badge {
+  position: static;
+  display: inline-block;
+  background: var(--color-accent-red);
+  color: var(--color-text);
+  font-family: var(--font-heading);
+  font-size: 0.75rem;
+  padding: 0.4rem 1rem;
+  letter-spacing: 0.15em;
+  box-shadow: var(--shadow-glow-red);
+  margin-bottom: 1rem;
 }
 
 .work-card.featured:hover {
@@ -1646,8 +1703,6 @@ function renderFeaturedCard(work) {
   
   return `
     <article class="work-card featured ${work.type}" data-id="${work.id}" data-type="${work.type}">
-      <span class="featured-badge">FEATURED</span>
-      ${badge}
       <div class="work-thumbnail">
         ${work.thumbnail 
           ? `<img src="${work.thumbnail}" alt="${work.title}" loading="eager">`
@@ -1656,8 +1711,10 @@ function renderFeaturedCard(work) {
         <div class="play-icon"></div>
       </div>
       <div class="work-info">
+        <span class="featured-badge">★ FEATURED</span>
         <h3>${work.title}</h3>
-        <p>${work.category} / ${work.year}</p>
+        <p class="meta">${work.category} / ${work.year}</p>
+        <p class="description">${work.description}</p>
       </div>
     </article>
   `;
