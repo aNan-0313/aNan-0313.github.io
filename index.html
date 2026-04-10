@@ -392,10 +392,10 @@ a {
   gap: var(--spacing-md);
 }
 
-/* 主视觉大卡片区域 - 左侧大卡片(跨2行) + 右侧4个小卡片 */
+/* 主视觉大卡片区域 - 左侧大卡片(占2列宽+跨2行) + 右侧4个小卡片 */
 .works-grid-featured {
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-columns: 2fr 1fr 1fr;
   gap: var(--spacing-md);
   margin-bottom: var(--spacing-md);
 }
@@ -962,14 +962,15 @@ a {
     gap: var(--spacing-sm);
   }
 
-  /* Featured 区域 - 移动端第一张跨2列 */
+  /* Featured 区域 - 平板保持大卡片 */
   .works-grid-featured {
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: 2fr 1fr 1fr;
     margin-bottom: var(--spacing-sm);
   }
 
   .work-card.featured {
-    grid-column: span 2;
+    grid-column: span 1;
+    grid-row: span 2;
   }
 
   /* Hero */
@@ -1009,6 +1010,18 @@ a {
 @media (max-width: 480px) {
   .container {
     padding: 0 var(--spacing-sm);
+  }
+
+  /* Featured 区域 - 手机端主视觉占整行 */
+  .works-grid-featured {
+    grid-template-columns: 1fr;
+    gap: var(--spacing-sm);
+  }
+
+  .work-card.featured {
+    grid-column: span 1;
+    grid-row: span 1;
+    aspect-ratio: 3/4;
   }
 
   .works-grid {
