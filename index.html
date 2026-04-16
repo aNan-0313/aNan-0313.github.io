@@ -1197,7 +1197,7 @@ a {
   font-size: 1rem;
 }
 
-/* 细节板块样式 */
+/* 细节板块样式 - 瀑布流布局 */
 .detail-section {
   margin-top: var(--spacing-lg);
   padding-top: var(--spacing-lg);
@@ -1212,30 +1212,40 @@ a {
 }
 
 .detail-section .detail-images {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: var(--spacing-sm);
+  column-count: 2;
+  column-gap: var(--spacing-sm);
 }
 
 .detail-section .detail-images img {
   width: 100%;
   height: auto;
-  aspect-ratio: 16/10;
-  object-fit: cover;
+  break-inside: avoid;
+  margin-bottom: var(--spacing-sm);
   border: 1px solid var(--color-border);
-  transition: var(--transition-fast);
+  transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+  display: block;
 }
 
 .detail-section .detail-images img:hover {
   border-color: var(--color-accent-red);
+  transform: scale(1.02);
+  box-shadow: 0 10px 30px rgba(168, 40, 40, 0.3);
 }
 
 .detail-section .detail-images.single-image {
-  grid-template-columns: 1fr;
+  column-count: 1;
+  max-width: 800px;
 }
 
 .detail-section .detail-images.single-image img {
-  aspect-ratio: 16/9;
+  max-width: 100%;
+}
+
+/* 响应式 - 手机单列 */
+@media (max-width: 768px) {
+  .detail-section .detail-images {
+    column-count: 1;
+  }
 }
 
 /* ========================================
