@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="作品详情 - aNan_Design">
+  <meta name="author" content="aNan_Design">
+  
+  <title>Work Detail - aNan_Design</title>
+  
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;700&family=Rajdhani:wght@400;500;600;700&display=swap" rel="stylesheet">
+  
+  <!-- Stylesheet -->
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <!-- ========================================
+       Navigation
+       ======================================== -->
+  <nav class="nav">
+    <div class="nav-container">
+      <a href="index.html" class="nav-logo">aNan<span>_</span>Design</a>
+      
+      <ul class="nav-links">
+        <li><a href="index.html">Works</a></li>
+        <li><a href="about.html">About</a></li>
+      </ul>
+      
+      <div class="nav-toggle">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ========================================
+       Work Detail
+       ======================================== -->
+  <main class="work-detail section">
+    <div class="container">
+      <!-- Header -->
+      <div class="work-detail-header">
+        <p id="work-category" class="category">Loading...</p>
+        <h1 id="work-title">Loading...</h1>
+      </div>
+      
+      <!-- Media Container (Video/Image) -->
+      <div id="media-container">
+        <!-- JS动态填充 -->
+        <div class="video-player">
+          <div class="video-placeholder">
+            <div class="icon">◉</div>
+            <p>Loading...</p>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Project Info -->
+      <div class="project-info">
+        <div class="project-info-item">
+          <h4>Year</h4>
+          <p id="work-year">-</p>
+        </div>
+        <div class="project-info-item">
+          <h4>Type</h4>
+          <p id="work-category-detail">-</p>
+        </div>
+        <div class="project-info-item">
+          <h4>Role</h4>
+          <p>3D Design / Motion</p>
+        </div>
+        <div class="project-info-item">
+          <h4>Software</h4>
+          <p>Blender, Octane, AE</p>
+        </div>
+      </div>
+      
+      <!-- Project Description -->
+      <div class="project-description">
+        <h3>Creative Concept</h3>
+        <p id="work-description">Loading project details...</p>
+      </div>
+      
+      <!-- Back Button -->
+      <button class="back-button" onclick="window.location.href='index.html'">
+        ← Back to Portfolio
+      </button>
+    </div>
+  </main>
+
+  <!-- ========================================
+       Footer
+       ======================================== -->
+  <footer class="footer">
+    <div class="container">
+      <p>© 2024 <span>aNan_Design</span>. All Rights Reserved.</p>
+    </div>
+  </footer>
+
+  <!-- JavaScript -->
+  <script src="js/main.js"></script>
+</body>
+</html>
