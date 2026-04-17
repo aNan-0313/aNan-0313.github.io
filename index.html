@@ -233,16 +233,26 @@ a {
 /* ========================================
    Navigation
    ======================================== */
+/* 导航栏 - 滚动分离效果（原版已备份） */
 .nav {
-  position: fixed;
+  position: absolute;
   top: 0;
   left: 0;
   right: 0;
   z-index: 1000;
-  background: rgba(10, 9, 8, 0.92);
-  backdrop-filter: blur(10px);
-  border-bottom: 1px solid var(--color-border);
+  background: transparent;
+  border-bottom: none;
   padding: var(--spacing-sm) 0;
+  transition: all 0.4s cubic-bezier(0.26, 0.67, 0.48, 0.91);
+}
+
+/* 滚动后导航栏样式 */
+.nav.scrolled {
+  position: fixed;
+  background: rgba(10, 9, 8, 0.95);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border-bottom: 1px solid var(--color-border);
 }
 
 .nav-container {
@@ -2162,12 +2172,16 @@ function navigateTo(page) {
   const worksPage = document.getElementById('works-page');
   const aboutPage = document.getElementById('about-page');
   const navLinks = document.querySelectorAll('.nav-links a');
+  const nav = document.querySelector('.nav');
   
   // 关闭移动端菜单
   const navLinksEl = document.querySelector('.nav-links');
   const navToggle = document.querySelector('.nav-toggle');
   if (navLinksEl) navLinksEl.classList.remove('active');
   if (navToggle) navToggle.classList.remove('active');
+  
+  // 重置导航栏状态
+  if (nav) nav.classList.remove('scrolled');
   
   // 更新导航高亮
   navLinks.forEach(link => {
@@ -2655,6 +2669,7 @@ function initScrollReveal() {
 function initScrollEffects() {
   const progressBar = document.getElementById('scrollProgressBar');
   const backToTop = document.getElementById('backToTop');
+  const nav = document.querySelector('.nav');
   
   // 监听滚动事件
   window.addEventListener('scroll', () => {
@@ -2662,6 +2677,15 @@ function initScrollEffects() {
     const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
     const scrollHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
     const scrollProgress = (scrollTop / scrollHeight) * 100;
+    
+    // 导航栏滚动分离效果
+    if (nav) {
+      if (scrollTop > 80) {
+        nav.classList.add('scrolled');
+      } else {
+        nav.classList.remove('scrolled');
+      }
+    }
     
     // 更新进度条宽度
     if (progressBar) {
