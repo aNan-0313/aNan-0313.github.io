@@ -391,11 +391,14 @@ a {
 /* ========================================
    滚动揭示动画 - 卡片初始状态
    ======================================== */
+/* 滚动揭示动画 - 升级版（原版已备份） */
+/* 弹性曲线：先慢后快，有律动感的收尾 */
 .scroll-reveal {
   opacity: 0;
-  transform: translateY(30px);
-  transition: opacity 0.6s cubic-bezier(0.23, 1, 0.32, 1), 
-              transform 0.6s cubic-bezier(0.23, 1, 0.32, 1);
+  transform: translateY(80px);
+  will-change: transform, opacity;
+  transition: opacity 0.6s linear, 
+              transform 0.7s cubic-bezier(0.26, 0.67, 0.48, 0.91);
 }
 
 .scroll-reveal.revealed {
@@ -403,16 +406,19 @@ a {
   transform: translateY(0);
 }
 
-/* 揭示动画延迟 - 错落有致的效果 */
+/* 交错入场 - 波浪感，间隔80ms */
 .scroll-reveal:nth-child(1) { transition-delay: 0s; }
-.scroll-reveal:nth-child(2) { transition-delay: 0.1s; }
-.scroll-reveal:nth-child(3) { transition-delay: 0.2s; }
-.scroll-reveal:nth-child(4) { transition-delay: 0.3s; }
-.scroll-reveal:nth-child(5) { transition-delay: 0.4s; }
-.scroll-reveal:nth-child(6) { transition-delay: 0.5s; }
-.scroll-reveal:nth-child(7) { transition-delay: 0.6s; }
-.scroll-reveal:nth-child(8) { transition-delay: 0.7s; }
-.scroll-reveal:nth-child(9) { transition-delay: 0.8s; }
+.scroll-reveal:nth-child(2) { transition-delay: 0.08s; }
+.scroll-reveal:nth-child(3) { transition-delay: 0.16s; }
+.scroll-reveal:nth-child(4) { transition-delay: 0.24s; }
+.scroll-reveal:nth-child(5) { transition-delay: 0.32s; }
+.scroll-reveal:nth-child(6) { transition-delay: 0.40s; }
+.scroll-reveal:nth-child(7) { transition-delay: 0.48s; }
+.scroll-reveal:nth-child(8) { transition-delay: 0.56s; }
+.scroll-reveal:nth-child(9) { transition-delay: 0.64s; }
+.scroll-reveal:nth-child(10) { transition-delay: 0.72s; }
+.scroll-reveal:nth-child(11) { transition-delay: 0.80s; }
+.scroll-reveal:nth-child(12) { transition-delay: 0.88s; }
 
 /* ========================================
    Page Sections - SPA Support
@@ -717,13 +723,14 @@ a {
 }
 
 /* 标准竖版卡片 - 图片+文字分开 */
+/* 卡片悬停效果 - 升级版 */
 .work-card {
   position: relative;
   background: var(--color-bg-card);
   border: 1px solid var(--color-border);
   overflow: hidden;
   cursor: pointer;
-  transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+  transition: all 0.5s cubic-bezier(0.26, 0.67, 0.48, 0.91);
   display: flex;
   flex-direction: column;
   height: auto;
@@ -765,7 +772,7 @@ a {
   object-fit: cover;
   object-position: center;
   filter: sepia(0.05) contrast(1.05) brightness(0.98);
-  transition: transform 0.6s cubic-bezier(0.23, 1, 0.32, 1), filter 0.4s ease;
+  transition: transform 0.7s cubic-bezier(0.26, 0.67, 0.48, 0.91), filter 0.4s ease;
 }
 
 .work-card:hover .work-thumbnail img {
@@ -775,8 +782,8 @@ a {
 
 .work-card:hover {
   border-color: var(--color-accent-red);
-  transform: translateY(-12px) scale(1.03);
-  box-shadow: 0 20px 50px rgba(168, 40, 40, 0.35), 0 0 80px rgba(168, 40, 40, 0.15);
+  transform: translateY(-20px) scale(1.02);
+  box-shadow: 0 25px 60px rgba(168, 40, 40, 0.4), 0 0 100px rgba(168, 40, 40, 0.2);
 }
 
 /* 卡片点击效果 */
@@ -880,7 +887,7 @@ a {
   min-height: 70px;
   position: relative;
   z-index: 2;
-  transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+  transition: all 0.5s cubic-bezier(0.26, 0.67, 0.48, 0.91);
 }
 
 .work-card:hover .work-info {
@@ -1622,13 +1629,14 @@ a {
 }
 
 /* ========================================
-   滚动揭示动画
+   滚动揭示动画 - 移动端（升级版）
    ======================================== */
 .scroll-reveal {
   opacity: 0;
-  transform: translateY(40px);
-  transition: opacity 0.7s cubic-bezier(0.23, 1, 0.32, 1), 
-              transform 0.7s cubic-bezier(0.23, 1, 0.32, 1);
+  transform: translateY(60px);
+  will-change: transform, opacity;
+  transition: opacity 0.6s linear, 
+              transform 0.7s cubic-bezier(0.26, 0.67, 0.48, 0.91);
 }
 
 .scroll-reveal.revealed {
@@ -1636,13 +1644,19 @@ a {
   transform: translateY(0);
 }
 
-/* 错落延迟 */
+/* 错落延迟 - 80ms间隔 */
 .works-grid .work-card:nth-child(1) { transition-delay: 0s; }
-.works-grid .work-card:nth-child(2) { transition-delay: 0.1s; }
-.works-grid .work-card:nth-child(3) { transition-delay: 0.2s; }
-.works-grid .work-card:nth-child(4) { transition-delay: 0.3s; }
-.works-grid .work-card:nth-child(5) { transition-delay: 0.4s; }
-.works-grid .work-card:nth-child(6) { transition-delay: 0.5s; }
+.works-grid .work-card:nth-child(2) { transition-delay: 0.08s; }
+.works-grid .work-card:nth-child(3) { transition-delay: 0.16s; }
+.works-grid .work-card:nth-child(4) { transition-delay: 0.24s; }
+.works-grid .work-card:nth-child(5) { transition-delay: 0.32s; }
+.works-grid .work-card:nth-child(6) { transition-delay: 0.40s; }
+.works-grid .work-card:nth-child(7) { transition-delay: 0.48s; }
+.works-grid .work-card:nth-child(8) { transition-delay: 0.56s; }
+.works-grid .work-card:nth-child(9) { transition-delay: 0.64s; }
+.works-grid .work-card:nth-child(10) { transition-delay: 0.72s; }
+.works-grid .work-card:nth-child(11) { transition-delay: 0.80s; }
+.works-grid .work-card:nth-child(12) { transition-delay: 0.88s; }
 
 /* ========================================
    滚动进度条
