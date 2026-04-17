@@ -233,40 +233,28 @@ a {
 /* ========================================
    Navigation
    ======================================== */
-/* 导航栏 - 滚动分离效果（原版已备份） */
+/* 导航栏 - 始终fixed，只变样式 */
 .nav {
-  position: absolute;
+  position: fixed;
   top: 0;
   left: 0;
   right: 0;
   z-index: 1000;
   background: transparent;
   border-bottom: none;
-  padding: var(--spacing-md) 0;
-  transition: all 0.3s ease-in;
-}
-
-/* 导航背景层 */
-.nav::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: rgba(10, 9, 8, 0.9);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-  opacity: 0;
-  transition: opacity 0.3s ease-in;
-  z-index: -1;
+  padding: 1.5rem 0;
+  transition: background 0.5s ease, 
+              padding 0.5s ease,
+              box-shadow 0.5s ease;
 }
 
 /* 滚动后导航栏样式 */
 .nav.scrolled {
-  position: fixed;
-  padding: var(--spacing-sm) 0;
-}
-
-.nav.scrolled::before {
-  opacity: 1;
+  padding: 1rem 0;
+  background: rgba(10, 9, 8, 0.92);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.4);
 }
 
 /* 导航内容层 - 弹性过渡 */
@@ -274,9 +262,9 @@ a {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  max-width: 100%;
+  max-width: 1400px;
   margin: 0 auto;
-  padding: 0 var(--spacing-lg);
+  padding: 0 var(--spacing-md);
   transition: transform 0.8s cubic-bezier(0.215, 0.61, 0.355, 1);
 }
 
@@ -432,20 +420,19 @@ a {
   transform: translateY(0);
 }
 
-/* 交错入场 - 波浪感，间隔80ms */
-/* 只对未揭示的卡片设置延迟，不影响后续悬停交互 */
-.scroll-reveal:not(.revealed):nth-child(1) { transition-delay: 0s; }
-.scroll-reveal:not(.revealed):nth-child(2) { transition-delay: 0.08s; }
-.scroll-reveal:not(.revealed):nth-child(3) { transition-delay: 0.16s; }
-.scroll-reveal:not(.revealed):nth-child(4) { transition-delay: 0.24s; }
-.scroll-reveal:not(.revealed):nth-child(5) { transition-delay: 0.32s; }
-.scroll-reveal:not(.revealed):nth-child(6) { transition-delay: 0.40s; }
-.scroll-reveal:not(.revealed):nth-child(7) { transition-delay: 0.48s; }
-.scroll-reveal:not(.revealed):nth-child(8) { transition-delay: 0.56s; }
-.scroll-reveal:not(.revealed):nth-child(9) { transition-delay: 0.64s; }
-.scroll-reveal:not(.revealed):nth-child(10) { transition-delay: 0.72s; }
-.scroll-reveal:not(.revealed):nth-child(11) { transition-delay: 0.80s; }
-.scroll-reveal:not(.revealed):nth-child(12) { transition-delay: 0.88s; }
+/* 卡片波浪入场 - 交错延迟 */
+.work-card:nth-child(1) { transition-delay: 0s; }
+.work-card:nth-child(2) { transition-delay: 0.08s; }
+.work-card:nth-child(3) { transition-delay: 0.16s; }
+.work-card:nth-child(4) { transition-delay: 0.24s; }
+.work-card:nth-child(5) { transition-delay: 0.32s; }
+.work-card:nth-child(6) { transition-delay: 0.40s; }
+.work-card:nth-child(7) { transition-delay: 0.48s; }
+.work-card:nth-child(8) { transition-delay: 0.56s; }
+.work-card:nth-child(9) { transition-delay: 0.64s; }
+.work-card:nth-child(10) { transition-delay: 0.72s; }
+.work-card:nth-child(11) { transition-delay: 0.80s; }
+.work-card:nth-child(12) { transition-delay: 0.88s; }
 
 /* ========================================
    Page Sections - SPA Support
@@ -1671,19 +1658,19 @@ a {
   transform: translateY(0);
 }
 
-/* 错落延迟 - 80ms间隔，只影响入场不影响悬停 */
-.works-grid .work-card:not(.revealed):nth-child(1) { transition-delay: 0s; }
-.works-grid .work-card:not(.revealed):nth-child(2) { transition-delay: 0.08s; }
-.works-grid .work-card:not(.revealed):nth-child(3) { transition-delay: 0.16s; }
-.works-grid .work-card:not(.revealed):nth-child(4) { transition-delay: 0.24s; }
-.works-grid .work-card:not(.revealed):nth-child(5) { transition-delay: 0.32s; }
-.works-grid .work-card:not(.revealed):nth-child(6) { transition-delay: 0.40s; }
-.works-grid .work-card:not(.revealed):nth-child(7) { transition-delay: 0.48s; }
-.works-grid .work-card:not(.revealed):nth-child(8) { transition-delay: 0.56s; }
-.works-grid .work-card:not(.revealed):nth-child(9) { transition-delay: 0.64s; }
-.works-grid .work-card:not(.revealed):nth-child(10) { transition-delay: 0.72s; }
-.works-grid .work-card:not(.revealed):nth-child(11) { transition-delay: 0.80s; }
-.works-grid .work-card:not(.revealed):nth-child(12) { transition-delay: 0.88s; }
+/* 卡片波浪入场 - 移动端 */
+.work-card:nth-child(1) { transition-delay: 0s; }
+.work-card:nth-child(2) { transition-delay: 0.08s; }
+.work-card:nth-child(3) { transition-delay: 0.16s; }
+.work-card:nth-child(4) { transition-delay: 0.24s; }
+.work-card:nth-child(5) { transition-delay: 0.32s; }
+.work-card:nth-child(6) { transition-delay: 0.40s; }
+.work-card:nth-child(7) { transition-delay: 0.48s; }
+.work-card:nth-child(8) { transition-delay: 0.56s; }
+.work-card:nth-child(9) { transition-delay: 0.64s; }
+.work-card:nth-child(10) { transition-delay: 0.72s; }
+.work-card:nth-child(11) { transition-delay: 0.80s; }
+.work-card:nth-child(12) { transition-delay: 0.88s; }
 
 /* ========================================
    滚动进度条
@@ -2641,7 +2628,8 @@ function initScrollReveal() {
     '.skill-category',
     '.software-item',
     '.contact-link',
-    '.about-intro'
+    '.about-intro',
+    '.work-card'  // 卡片也加入波浪入场
   ];
   
   // 为每个选择器创建观察器
