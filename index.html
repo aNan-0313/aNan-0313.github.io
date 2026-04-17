@@ -236,20 +236,22 @@ a {
 /* 导航栏 - 始终fixed，只变样式 */
 .nav {
   position: fixed;
-  top: 0;
+  top: 24px;
   left: 0;
   right: 0;
   z-index: 1000;
   background: transparent;
   border-bottom: none;
   padding: 1.5rem 0;
-  transition: background 0.5s ease, 
+  transition: top 0.5s cubic-bezier(0.215, 0.61, 0.355, 1),
+              background 0.5s ease, 
               padding 0.5s ease,
               box-shadow 0.5s ease;
 }
 
 /* 滚动后导航栏样式 */
 .nav.scrolled {
+  top: 0;
   padding: 1rem 0;
   background: rgba(10, 9, 8, 0.92);
   backdrop-filter: blur(12px);
