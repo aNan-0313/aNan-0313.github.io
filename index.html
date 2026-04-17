@@ -1477,15 +1477,19 @@ a {
 /* Lightbox Caption - 图片文字注释 */
 .lightbox-caption {
   position: absolute;
-  bottom: 100px;
+  bottom: 30px;
   left: 50%;
   transform: translateX(-50%);
-  max-width: 80%;
+  max-width: 90%;
   text-align: center;
   color: var(--color-text);
   opacity: 0;
   transition: opacity 0.4s ease;
   pointer-events: none;
+  background: rgba(0, 0, 0, 0.7);
+  padding: 1rem 1.5rem;
+  border-radius: 4px;
+  backdrop-filter: blur(10px);
 }
 
 .lightbox-overlay.active .lightbox-caption {
@@ -1494,16 +1498,17 @@ a {
 
 .lightbox-caption h4 {
   font-family: var(--font-heading);
-  font-size: 1.5rem;
+  font-size: 1.2rem;
   letter-spacing: 0.1em;
-  margin-bottom: 0.5rem;
+  margin-bottom: 0.3rem;
   color: var(--color-accent-red);
 }
 
 .lightbox-caption p {
-  font-size: 0.95rem;
+  font-size: 0.85rem;
   color: var(--color-text-secondary);
-  line-height: 1.6;
+  line-height: 1.5;
+  max-width: 500px;
 }
 
 .lightbox-nav {
@@ -2474,12 +2479,21 @@ function filterWorks(category) {
     container.innerHTML = filteredWorks.map(work => renderWorkCard(work)).join('');
   }
   
-  // 添加点击事件
+  // 添加点击事件 - image类型直接打开lightbox
   container.querySelectorAll('.work-card').forEach(card => {
     card.addEventListener('click', () => {
       const id = parseInt(card.dataset.id);
       const type = card.dataset.type;
-      openWorkModal(id, type);
+      const works = type === 'video' ? worksData.video : worksData.image;
+      const work = works.find(w => w.id == id);
+      
+      // image类型直接打开lightbox大图
+      if (type === 'image' && work) {
+        openLightbox(work.imageUrl || work.thumbnail, [work.imageUrl || work.thumbnail]);
+        showImageCaption(work.title, work.description);
+      } else {
+        openWorkModal(id, type);
+      }
     });
   });
   
@@ -2491,10 +2505,9 @@ function filterWorks(category) {
       const works = type === 'video' ? worksData.video : worksData.image;
       const work = works.find(w => w.id == id);
       
-      // image类型的featured作品直接打开lightbox大图
-      if (type === 'image' && work && work.featured) {
+      // image类型直接打开lightbox大图
+      if (type === 'image' && work) {
         openLightbox(work.imageUrl || work.thumbnail, [work.imageUrl || work.thumbnail]);
-        // 显示标题和描述的提示
         showImageCaption(work.title, work.description);
       } else {
         openWorkModal(id, type);
