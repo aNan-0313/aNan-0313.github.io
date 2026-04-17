@@ -1371,6 +1371,7 @@ a {
   background: linear-gradient(90deg, #1a1815 25%, #2a2724 50%, #1a1815 75%);
   background-size: 200% 100%;
   animation: shimmer 1.5s infinite, imgFadeIn 0.6s ease forwards;
+  cursor: zoom-in;
 }
 
 @keyframes shimmer {
@@ -1390,8 +1391,11 @@ a {
 
 .detail-section .detail-images img:hover {
   border-color: var(--color-accent-red);
-  transform: scale(1.02);
-  box-shadow: 0 10px 30px rgba(168, 40, 40, 0.3);
+  transform: scale(1.05);
+  box-shadow: 0 10px 30px rgba(168, 40, 40, 0.3),
+              0 0 20px rgba(168, 40, 40, 0.2);
+  z-index: 2;
+  position: relative;
 }
 
 .detail-section .detail-images.single-image {
