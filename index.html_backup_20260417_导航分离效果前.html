@@ -233,33 +233,18 @@ a {
 /* ========================================
    Navigation
    ======================================== */
-/* 导航栏 - 始终fixed，只变样式 */
 .nav {
   position: fixed;
-  top: 24px;
+  top: 0;
   left: 0;
   right: 0;
   z-index: 1000;
-  background: transparent;
-  border-bottom: none;
-  padding: 1.5rem 0;
-  transition: top 0.8s cubic-bezier(0.215, 0.61, 0.355, 1),
-              background 0.8s ease, 
-              padding 0.8s ease,
-              box-shadow 0.8s ease;
-}
-
-/* 滚动后导航栏样式 */
-.nav.scrolled {
-  top: 0;
-  padding: 1rem 0;
   background: rgba(10, 9, 8, 0.92);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid var(--color-border);
+  padding: var(--spacing-sm) 0;
 }
 
-/* 导航内容层 - 弹性过渡 */
 .nav-container {
   display: flex;
   justify-content: space-between;
@@ -267,7 +252,6 @@ a {
   max-width: 1400px;
   margin: 0 auto;
   padding: 0 var(--spacing-md);
-  transition: transform 0.8s cubic-bezier(0.215, 0.61, 0.355, 1);
 }
 
 .nav-logo {
@@ -422,19 +406,19 @@ a {
   transform: translateY(0);
 }
 
-/* 卡片波浪入场 - 交错延迟 */
-.work-card:nth-child(1) { transition-delay: 0s; }
-.work-card:nth-child(2) { transition-delay: 0.08s; }
-.work-card:nth-child(3) { transition-delay: 0.16s; }
-.work-card:nth-child(4) { transition-delay: 0.24s; }
-.work-card:nth-child(5) { transition-delay: 0.32s; }
-.work-card:nth-child(6) { transition-delay: 0.40s; }
-.work-card:nth-child(7) { transition-delay: 0.48s; }
-.work-card:nth-child(8) { transition-delay: 0.56s; }
-.work-card:nth-child(9) { transition-delay: 0.64s; }
-.work-card:nth-child(10) { transition-delay: 0.72s; }
-.work-card:nth-child(11) { transition-delay: 0.80s; }
-.work-card:nth-child(12) { transition-delay: 0.88s; }
+/* 交错入场 - 波浪感，间隔80ms */
+.scroll-reveal:nth-child(1) { transition-delay: 0s; }
+.scroll-reveal:nth-child(2) { transition-delay: 0.08s; }
+.scroll-reveal:nth-child(3) { transition-delay: 0.16s; }
+.scroll-reveal:nth-child(4) { transition-delay: 0.24s; }
+.scroll-reveal:nth-child(5) { transition-delay: 0.32s; }
+.scroll-reveal:nth-child(6) { transition-delay: 0.40s; }
+.scroll-reveal:nth-child(7) { transition-delay: 0.48s; }
+.scroll-reveal:nth-child(8) { transition-delay: 0.56s; }
+.scroll-reveal:nth-child(9) { transition-delay: 0.64s; }
+.scroll-reveal:nth-child(10) { transition-delay: 0.72s; }
+.scroll-reveal:nth-child(11) { transition-delay: 0.80s; }
+.scroll-reveal:nth-child(12) { transition-delay: 0.88s; }
 
 /* ========================================
    Page Sections - SPA Support
@@ -1660,19 +1644,19 @@ a {
   transform: translateY(0);
 }
 
-/* 卡片波浪入场 - 移动端 */
-.work-card:nth-child(1) { transition-delay: 0s; }
-.work-card:nth-child(2) { transition-delay: 0.08s; }
-.work-card:nth-child(3) { transition-delay: 0.16s; }
-.work-card:nth-child(4) { transition-delay: 0.24s; }
-.work-card:nth-child(5) { transition-delay: 0.32s; }
-.work-card:nth-child(6) { transition-delay: 0.40s; }
-.work-card:nth-child(7) { transition-delay: 0.48s; }
-.work-card:nth-child(8) { transition-delay: 0.56s; }
-.work-card:nth-child(9) { transition-delay: 0.64s; }
-.work-card:nth-child(10) { transition-delay: 0.72s; }
-.work-card:nth-child(11) { transition-delay: 0.80s; }
-.work-card:nth-child(12) { transition-delay: 0.88s; }
+/* 错落延迟 - 80ms间隔 */
+.works-grid .work-card:nth-child(1) { transition-delay: 0s; }
+.works-grid .work-card:nth-child(2) { transition-delay: 0.08s; }
+.works-grid .work-card:nth-child(3) { transition-delay: 0.16s; }
+.works-grid .work-card:nth-child(4) { transition-delay: 0.24s; }
+.works-grid .work-card:nth-child(5) { transition-delay: 0.32s; }
+.works-grid .work-card:nth-child(6) { transition-delay: 0.40s; }
+.works-grid .work-card:nth-child(7) { transition-delay: 0.48s; }
+.works-grid .work-card:nth-child(8) { transition-delay: 0.56s; }
+.works-grid .work-card:nth-child(9) { transition-delay: 0.64s; }
+.works-grid .work-card:nth-child(10) { transition-delay: 0.72s; }
+.works-grid .work-card:nth-child(11) { transition-delay: 0.80s; }
+.works-grid .work-card:nth-child(12) { transition-delay: 0.88s; }
 
 /* ========================================
    滚动进度条
@@ -2123,23 +2107,14 @@ const worksData = {
   ],
   image: [
     {
-      id: 14,
-      title: "ROCK&RIDE 轮胎",
-      category: "Product Visualization",
-      year: "2024",
-      thumbnail: "thumbnails/featured_new.jpg",
-      imageUrl: "details/featured_new.jpg",
-      description: "ROCK&RIDE品牌轮胎产品渲染，将工业机械美学与复古摇滚精神融合。粗犷的轮胎纹理与金属质感相映，诠释公路文化的自由与力量，展现品牌"RIDE HARD, ROCK LOUD"的核心精神。",
-      featured: true
-    },
-    {
       id: 9,
       title: "姜饼人砸击火山",
       category: "3D Illustration",
       year: "2024",
       thumbnail: "thumbnails/gingerbread_volcano.jpg",
       imageUrl: "thumbnails/",
-      description: "将童话角色置于末日场景，姜饼人的甜蜜与火山的毁灭性形成强烈对比，营造荒诞又壮观的视觉效果。"
+      description: "将童话角色置于末日场景，姜饼人的甜蜜与火山的毁灭性形成强烈对比，营造荒诞又壮观的视觉效果。",
+      featured: true
     },
     {
       id: 10,
@@ -2187,16 +2162,12 @@ function navigateTo(page) {
   const worksPage = document.getElementById('works-page');
   const aboutPage = document.getElementById('about-page');
   const navLinks = document.querySelectorAll('.nav-links a');
-  const nav = document.querySelector('.nav');
   
   // 关闭移动端菜单
   const navLinksEl = document.querySelector('.nav-links');
   const navToggle = document.querySelector('.nav-toggle');
   if (navLinksEl) navLinksEl.classList.remove('active');
   if (navToggle) navToggle.classList.remove('active');
-  
-  // 重置导航栏状态
-  if (nav) nav.classList.remove('scrolled');
   
   // 更新导航高亮
   navLinks.forEach(link => {
@@ -2639,8 +2610,7 @@ function initScrollReveal() {
     '.skill-category',
     '.software-item',
     '.contact-link',
-    '.about-intro',
-    '.work-card'  // 卡片也加入波浪入场
+    '.about-intro'
   ];
   
   // 为每个选择器创建观察器
@@ -2685,7 +2655,6 @@ function initScrollReveal() {
 function initScrollEffects() {
   const progressBar = document.getElementById('scrollProgressBar');
   const backToTop = document.getElementById('backToTop');
-  const nav = document.querySelector('.nav');
   
   // 监听滚动事件
   window.addEventListener('scroll', () => {
@@ -2693,15 +2662,6 @@ function initScrollEffects() {
     const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
     const scrollHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
     const scrollProgress = (scrollTop / scrollHeight) * 100;
-    
-    // 导航栏滚动分离效果
-    if (nav) {
-      if (scrollTop > 80) {
-        nav.classList.add('scrolled');
-      } else {
-        nav.classList.remove('scrolled');
-      }
-    }
     
     // 更新进度条宽度
     if (progressBar) {

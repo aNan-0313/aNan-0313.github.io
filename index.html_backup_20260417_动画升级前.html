@@ -233,33 +233,18 @@ a {
 /* ========================================
    Navigation
    ======================================== */
-/* 导航栏 - 始终fixed，只变样式 */
 .nav {
   position: fixed;
-  top: 24px;
+  top: 0;
   left: 0;
   right: 0;
   z-index: 1000;
-  background: transparent;
-  border-bottom: none;
-  padding: 1.5rem 0;
-  transition: top 0.8s cubic-bezier(0.215, 0.61, 0.355, 1),
-              background 0.8s ease, 
-              padding 0.8s ease,
-              box-shadow 0.8s ease;
-}
-
-/* 滚动后导航栏样式 */
-.nav.scrolled {
-  top: 0;
-  padding: 1rem 0;
   background: rgba(10, 9, 8, 0.92);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid var(--color-border);
+  padding: var(--spacing-sm) 0;
 }
 
-/* 导航内容层 - 弹性过渡 */
 .nav-container {
   display: flex;
   justify-content: space-between;
@@ -267,7 +252,6 @@ a {
   max-width: 1400px;
   margin: 0 auto;
   padding: 0 var(--spacing-md);
-  transition: transform 0.8s cubic-bezier(0.215, 0.61, 0.355, 1);
 }
 
 .nav-logo {
@@ -407,14 +391,11 @@ a {
 /* ========================================
    滚动揭示动画 - 卡片初始状态
    ======================================== */
-/* 滚动揭示动画 - 升级版（原版已备份） */
-/* 弹性曲线：先慢后快，有律动感的收尾 */
 .scroll-reveal {
   opacity: 0;
-  transform: translateY(80px);
-  will-change: transform, opacity;
-  transition: opacity 0.6s linear, 
-              transform 0.7s cubic-bezier(0.26, 0.67, 0.48, 0.91);
+  transform: translateY(30px);
+  transition: opacity 0.6s cubic-bezier(0.23, 1, 0.32, 1), 
+              transform 0.6s cubic-bezier(0.23, 1, 0.32, 1);
 }
 
 .scroll-reveal.revealed {
@@ -422,19 +403,16 @@ a {
   transform: translateY(0);
 }
 
-/* 卡片波浪入场 - 交错延迟 */
-.work-card:nth-child(1) { transition-delay: 0s; }
-.work-card:nth-child(2) { transition-delay: 0.08s; }
-.work-card:nth-child(3) { transition-delay: 0.16s; }
-.work-card:nth-child(4) { transition-delay: 0.24s; }
-.work-card:nth-child(5) { transition-delay: 0.32s; }
-.work-card:nth-child(6) { transition-delay: 0.40s; }
-.work-card:nth-child(7) { transition-delay: 0.48s; }
-.work-card:nth-child(8) { transition-delay: 0.56s; }
-.work-card:nth-child(9) { transition-delay: 0.64s; }
-.work-card:nth-child(10) { transition-delay: 0.72s; }
-.work-card:nth-child(11) { transition-delay: 0.80s; }
-.work-card:nth-child(12) { transition-delay: 0.88s; }
+/* 揭示动画延迟 - 错落有致的效果 */
+.scroll-reveal:nth-child(1) { transition-delay: 0s; }
+.scroll-reveal:nth-child(2) { transition-delay: 0.1s; }
+.scroll-reveal:nth-child(3) { transition-delay: 0.2s; }
+.scroll-reveal:nth-child(4) { transition-delay: 0.3s; }
+.scroll-reveal:nth-child(5) { transition-delay: 0.4s; }
+.scroll-reveal:nth-child(6) { transition-delay: 0.5s; }
+.scroll-reveal:nth-child(7) { transition-delay: 0.6s; }
+.scroll-reveal:nth-child(8) { transition-delay: 0.7s; }
+.scroll-reveal:nth-child(9) { transition-delay: 0.8s; }
 
 /* ========================================
    Page Sections - SPA Support
@@ -739,14 +717,13 @@ a {
 }
 
 /* 标准竖版卡片 - 图片+文字分开 */
-/* 卡片悬停效果 - 升级版 */
 .work-card {
   position: relative;
   background: var(--color-bg-card);
   border: 1px solid var(--color-border);
   overflow: hidden;
   cursor: pointer;
-  transition: all 0.5s cubic-bezier(0.26, 0.67, 0.48, 0.91);
+  transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
   display: flex;
   flex-direction: column;
   height: auto;
@@ -788,7 +765,7 @@ a {
   object-fit: cover;
   object-position: center;
   filter: sepia(0.05) contrast(1.05) brightness(0.98);
-  transition: transform 0.7s cubic-bezier(0.26, 0.67, 0.48, 0.91), filter 0.4s ease;
+  transition: transform 0.6s cubic-bezier(0.23, 1, 0.32, 1), filter 0.4s ease;
 }
 
 .work-card:hover .work-thumbnail img {
@@ -798,8 +775,8 @@ a {
 
 .work-card:hover {
   border-color: var(--color-accent-red);
-  transform: translateY(-20px) scale(1.02);
-  box-shadow: 0 25px 60px rgba(168, 40, 40, 0.4), 0 0 100px rgba(168, 40, 40, 0.2);
+  transform: translateY(-12px) scale(1.03);
+  box-shadow: 0 20px 50px rgba(168, 40, 40, 0.35), 0 0 80px rgba(168, 40, 40, 0.15);
 }
 
 /* 卡片点击效果 */
@@ -903,7 +880,7 @@ a {
   min-height: 70px;
   position: relative;
   z-index: 2;
-  transition: all 0.5s cubic-bezier(0.26, 0.67, 0.48, 0.91);
+  transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
 }
 
 .work-card:hover .work-info {
@@ -1645,14 +1622,13 @@ a {
 }
 
 /* ========================================
-   滚动揭示动画 - 移动端（升级版）
+   滚动揭示动画
    ======================================== */
 .scroll-reveal {
   opacity: 0;
-  transform: translateY(60px);
-  will-change: transform, opacity;
-  transition: opacity 0.6s linear, 
-              transform 0.7s cubic-bezier(0.26, 0.67, 0.48, 0.91);
+  transform: translateY(40px);
+  transition: opacity 0.7s cubic-bezier(0.23, 1, 0.32, 1), 
+              transform 0.7s cubic-bezier(0.23, 1, 0.32, 1);
 }
 
 .scroll-reveal.revealed {
@@ -1660,19 +1636,13 @@ a {
   transform: translateY(0);
 }
 
-/* 卡片波浪入场 - 移动端 */
-.work-card:nth-child(1) { transition-delay: 0s; }
-.work-card:nth-child(2) { transition-delay: 0.08s; }
-.work-card:nth-child(3) { transition-delay: 0.16s; }
-.work-card:nth-child(4) { transition-delay: 0.24s; }
-.work-card:nth-child(5) { transition-delay: 0.32s; }
-.work-card:nth-child(6) { transition-delay: 0.40s; }
-.work-card:nth-child(7) { transition-delay: 0.48s; }
-.work-card:nth-child(8) { transition-delay: 0.56s; }
-.work-card:nth-child(9) { transition-delay: 0.64s; }
-.work-card:nth-child(10) { transition-delay: 0.72s; }
-.work-card:nth-child(11) { transition-delay: 0.80s; }
-.work-card:nth-child(12) { transition-delay: 0.88s; }
+/* 错落延迟 */
+.works-grid .work-card:nth-child(1) { transition-delay: 0s; }
+.works-grid .work-card:nth-child(2) { transition-delay: 0.1s; }
+.works-grid .work-card:nth-child(3) { transition-delay: 0.2s; }
+.works-grid .work-card:nth-child(4) { transition-delay: 0.3s; }
+.works-grid .work-card:nth-child(5) { transition-delay: 0.4s; }
+.works-grid .work-card:nth-child(6) { transition-delay: 0.5s; }
 
 /* ========================================
    滚动进度条
@@ -2123,23 +2093,14 @@ const worksData = {
   ],
   image: [
     {
-      id: 14,
-      title: "ROCK&RIDE 轮胎",
-      category: "Product Visualization",
-      year: "2024",
-      thumbnail: "thumbnails/featured_new.jpg",
-      imageUrl: "details/featured_new.jpg",
-      description: "ROCK&RIDE品牌轮胎产品渲染，将工业机械美学与复古摇滚精神融合。粗犷的轮胎纹理与金属质感相映，诠释公路文化的自由与力量，展现品牌"RIDE HARD, ROCK LOUD"的核心精神。",
-      featured: true
-    },
-    {
       id: 9,
       title: "姜饼人砸击火山",
       category: "3D Illustration",
       year: "2024",
       thumbnail: "thumbnails/gingerbread_volcano.jpg",
       imageUrl: "thumbnails/",
-      description: "将童话角色置于末日场景，姜饼人的甜蜜与火山的毁灭性形成强烈对比，营造荒诞又壮观的视觉效果。"
+      description: "将童话角色置于末日场景，姜饼人的甜蜜与火山的毁灭性形成强烈对比，营造荒诞又壮观的视觉效果。",
+      featured: true
     },
     {
       id: 10,
@@ -2187,16 +2148,12 @@ function navigateTo(page) {
   const worksPage = document.getElementById('works-page');
   const aboutPage = document.getElementById('about-page');
   const navLinks = document.querySelectorAll('.nav-links a');
-  const nav = document.querySelector('.nav');
   
   // 关闭移动端菜单
   const navLinksEl = document.querySelector('.nav-links');
   const navToggle = document.querySelector('.nav-toggle');
   if (navLinksEl) navLinksEl.classList.remove('active');
   if (navToggle) navToggle.classList.remove('active');
-  
-  // 重置导航栏状态
-  if (nav) nav.classList.remove('scrolled');
   
   // 更新导航高亮
   navLinks.forEach(link => {
@@ -2639,8 +2596,7 @@ function initScrollReveal() {
     '.skill-category',
     '.software-item',
     '.contact-link',
-    '.about-intro',
-    '.work-card'  // 卡片也加入波浪入场
+    '.about-intro'
   ];
   
   // 为每个选择器创建观察器
@@ -2685,7 +2641,6 @@ function initScrollReveal() {
 function initScrollEffects() {
   const progressBar = document.getElementById('scrollProgressBar');
   const backToTop = document.getElementById('backToTop');
-  const nav = document.querySelector('.nav');
   
   // 监听滚动事件
   window.addEventListener('scroll', () => {
@@ -2693,15 +2648,6 @@ function initScrollEffects() {
     const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
     const scrollHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
     const scrollProgress = (scrollTop / scrollHeight) * 100;
-    
-    // 导航栏滚动分离效果
-    if (nav) {
-      if (scrollTop > 80) {
-        nav.classList.add('scrolled');
-      } else {
-        nav.classList.remove('scrolled');
-      }
-    }
     
     // 更新进度条宽度
     if (progressBar) {
