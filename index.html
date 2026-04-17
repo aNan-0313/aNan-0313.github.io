@@ -1834,7 +1834,7 @@ a {
           aNan_Design
         </h1>
         <p class="hero-subtitle">3D Artist | 暗黑工业风 | 复古摇滚美学</p>
-        <a href="#works" class="hero-cta" onclick="navigateTo('works'); smoothScrollToWorks(); return false;">View Portfolio</a>
+        <a href="#works" class="hero-cta" onclick="scrollToWorksSection(); return false;">View Portfolio</a>
       </div>
       
       <div class="scroll-indicator">
@@ -2324,6 +2324,35 @@ function smoothScrollToWorks() {
       worksSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
     }, 100);
   }
+}
+
+// View Portfolio按钮 - 滚动到作品区域
+function scrollToWorksSection() {
+  const aboutPage = document.getElementById('about-page');
+  const worksPage = document.getElementById('works-page');
+  
+  // 如果在about页面，先切换到works页面
+  if (aboutPage && !aboutPage.classList.contains('hidden')) {
+    aboutPage.classList.add('hidden');
+    worksPage.classList.remove('hidden');
+    worksPage.classList.add('fade-in');
+    
+    // 更新导航高亮
+    document.querySelectorAll('.nav-links a').forEach(link => {
+      link.classList.remove('active');
+      if (link.dataset.page === 'works') {
+        link.classList.add('active');
+      }
+    });
+  }
+  
+  // 滚动到作品区域
+  setTimeout(() => {
+    const worksSection = document.getElementById('works');
+    if (worksSection) {
+      worksSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  }, 100);
 }
 
 // ========================================
