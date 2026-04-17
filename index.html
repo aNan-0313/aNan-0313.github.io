@@ -324,17 +324,119 @@ a {
 }
 
 /* ========================================
+   滚动进度条 - 顶部红色细线
+   ======================================== */
+.scroll-progress-bar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 0%;
+  height: 3px;
+  background: linear-gradient(90deg, var(--color-accent-red), var(--color-accent-red-glow));
+  box-shadow: 0 0 10px var(--color-accent-red), 0 0 20px rgba(168, 40, 40, 0.5);
+  z-index: 10000;
+  transition: width 0.1s ease-out;
+}
+
+/* ========================================
+   返回顶部按钮
+   ======================================== */
+.back-to-top {
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  width: 50px;
+  height: 50px;
+  background: var(--color-bg-card);
+  border: 2px solid var(--color-accent-red);
+  border-radius: 50%;
+  cursor: pointer;
+  z-index: 999;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(20px);
+  transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 0 20px rgba(168, 40, 40, 0.3);
+}
+
+.back-to-top.visible {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+.back-to-top:hover {
+  background: var(--color-accent-red);
+  transform: translateY(-5px);
+  box-shadow: 0 0 30px rgba(168, 40, 40, 0.6), 0 0 60px rgba(168, 40, 40, 0.3);
+}
+
+.back-to-top::before {
+  content: '';
+  width: 0;
+  height: 0;
+  border-left: 8px solid transparent;
+  border-right: 8px solid transparent;
+  border-bottom: 12px solid var(--color-accent-red);
+  transition: border-color 0.3s ease;
+}
+
+.back-to-top:hover::before {
+  border-bottom-color: var(--color-text);
+}
+
+/* ========================================
+   滚动揭示动画 - 卡片初始状态
+   ======================================== */
+.scroll-reveal {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.6s cubic-bezier(0.23, 1, 0.32, 1), 
+              transform 0.6s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+.scroll-reveal.revealed {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* 揭示动画延迟 - 错落有致的效果 */
+.scroll-reveal:nth-child(1) { transition-delay: 0s; }
+.scroll-reveal:nth-child(2) { transition-delay: 0.1s; }
+.scroll-reveal:nth-child(3) { transition-delay: 0.2s; }
+.scroll-reveal:nth-child(4) { transition-delay: 0.3s; }
+.scroll-reveal:nth-child(5) { transition-delay: 0.4s; }
+.scroll-reveal:nth-child(6) { transition-delay: 0.5s; }
+.scroll-reveal:nth-child(7) { transition-delay: 0.6s; }
+.scroll-reveal:nth-child(8) { transition-delay: 0.7s; }
+.scroll-reveal:nth-child(9) { transition-delay: 0.8s; }
+
+/* ========================================
    Page Sections - SPA Support
    ======================================== */
 .page-section {
   display: block;
   opacity: 1;
-  transition: opacity 0.3s ease;
+  transition: opacity 0.4s ease-in-out, transform 0.4s ease-in-out;
 }
 
 .page-section.hidden {
   display: none;
   opacity: 0;
+  transform: scale(0.98);
+}
+
+.page-section.fade-out {
+  opacity: 0;
+  transform: scale(0.98);
+}
+
+.page-section.fade-in {
+  opacity: 1;
+  transform: scale(1);
 }
 
 /* ========================================
@@ -1518,9 +1620,97 @@ a {
     grid-template-columns: 1fr;
   }
 }
+
+/* ========================================
+   滚动揭示动画
+   ======================================== */
+.scroll-reveal {
+  opacity: 0;
+  transform: translateY(40px);
+  transition: opacity 0.7s cubic-bezier(0.23, 1, 0.32, 1), 
+              transform 0.7s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+.scroll-reveal.revealed {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* 错落延迟 */
+.works-grid .work-card:nth-child(1) { transition-delay: 0s; }
+.works-grid .work-card:nth-child(2) { transition-delay: 0.1s; }
+.works-grid .work-card:nth-child(3) { transition-delay: 0.2s; }
+.works-grid .work-card:nth-child(4) { transition-delay: 0.3s; }
+.works-grid .work-card:nth-child(5) { transition-delay: 0.4s; }
+.works-grid .work-card:nth-child(6) { transition-delay: 0.5s; }
+
+/* ========================================
+   滚动进度条
+   ======================================== */
+.scroll-progress {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 0%;
+  height: 3px;
+  background: linear-gradient(90deg, var(--color-accent-red), #ff4444);
+  box-shadow: 0 0 10px var(--color-accent-red), 0 0 20px rgba(168, 40, 40, 0.5);
+  z-index: 9999;
+  transition: width 0.1s ease-out;
+}
+
+/* ========================================
+   返回顶部按钮
+   ======================================== */
+.back-to-top {
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  width: 50px;
+  height: 50px;
+  background: var(--color-bg-card);
+  border: 1px solid var(--color-accent-red);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(20px);
+  transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+  z-index: 1000;
+}
+
+.back-to-top.visible {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+.back-to-top:hover {
+  background: var(--color-accent-red);
+  box-shadow: 0 0 20px rgba(168, 40, 40, 0.6);
+  transform: translateY(-5px);
+}
+
+.back-to-top::before {
+  content: '';
+  width: 12px;
+  height: 12px;
+  border-left: 2px solid var(--color-text);
+  border-top: 2px solid var(--color-text);
+  transform: rotate(45deg) translateY(2px);
+}
   </style>
 </head>
 <body>
+  <!-- 滚动进度条 -->
+  <div class="scroll-progress-bar" id="scrollProgressBar"></div>
+  
+  <!-- 返回顶部按钮 -->
+  <button class="back-to-top" id="backToTop" onclick="scrollToTop()"></button>
+  
   <!-- ========================================
        Navigation
        ======================================== -->
@@ -1952,7 +2142,7 @@ const worksData = {
 };
 
 // ========================================
-// SPA Navigation
+// SPA Navigation - 页面切换过渡动效
 // ========================================
 function navigateTo(page) {
   const worksPage = document.getElementById('works-page');
@@ -1965,42 +2155,54 @@ function navigateTo(page) {
   if (navLinksEl) navLinksEl.classList.remove('active');
   if (navToggle) navToggle.classList.remove('active');
   
+  // 更新导航高亮
+  navLinks.forEach(link => {
+    link.classList.remove('active');
+    if (link.dataset.page === page) {
+      link.classList.add('active');
+    }
+  });
+  
   if (page === 'about') {
-    worksPage.classList.add('hidden');
-    aboutPage.classList.remove('hidden');
-    aboutPage.style.opacity = '0';
+    // 当前页面淡出
+    worksPage.classList.add('fade-out');
+    worksPage.classList.remove('fade-in');
+    
+    // 等待淡出完成后切换页面并淡入
     setTimeout(() => {
-      aboutPage.style.opacity = '1';
-    }, 10);
-    
-    // 更新导航高亮
-    navLinks.forEach(link => {
-      link.classList.remove('active');
-      if (link.dataset.page === 'about') {
-        link.classList.add('active');
-      }
-    });
-    
-    // 滚动到顶部
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+      worksPage.classList.add('hidden');
+      worksPage.classList.remove('fade-out');
+      aboutPage.classList.remove('hidden');
+      aboutPage.classList.add('fade-in');
+      
+      // 触发About页面的滚动揭示动画
+      setTimeout(() => {
+        initScrollReveal();
+      }, 100);
+      
+      // 滚动到顶部
+      window.scrollTo({ top: 0, behavior: 'instant' });
+    }, 400);
   } else {
-    aboutPage.classList.add('hidden');
-    worksPage.classList.remove('hidden');
-    worksPage.style.opacity = '0';
+    // 当前页面淡出
+    aboutPage.classList.add('fade-out');
+    aboutPage.classList.remove('fade-in');
+    
+    // 等待淡出完成后切换页面并淡入
     setTimeout(() => {
-      worksPage.style.opacity = '1';
-    }, 10);
-    
-    // 更新导航高亮
-    navLinks.forEach(link => {
-      link.classList.remove('active');
-      if (link.dataset.page === 'works') {
-        link.classList.add('active');
-      }
-    });
-    
-    // 滚动到顶部
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+      aboutPage.classList.add('hidden');
+      aboutPage.classList.remove('fade-out');
+      worksPage.classList.remove('hidden');
+      worksPage.classList.add('fade-in');
+      
+      // 触发Works页面的滚动揭示动画
+      setTimeout(() => {
+        initScrollReveal();
+      }, 100);
+      
+      // 滚动到顶部
+      window.scrollTo({ top: 0, behavior: 'instant' });
+    }, 400);
   }
   
   // 更新URL哈希
@@ -2382,6 +2584,101 @@ document.addEventListener('keydown', function(e) {
       closeModal();
     }
   }
+});
+
+// ========================================
+// 滚动揭示动画 - Intersection Observer
+// ========================================
+function initScrollReveal() {
+  // 需要添加滚动揭示动画的元素选择器
+  const revealSelectors = [
+    '.section-header',
+    '.skill-category',
+    '.software-item',
+    '.contact-link',
+    '.about-intro'
+  ];
+  
+  // 为每个选择器创建观察器
+  revealSelectors.forEach(selector => {
+    const elements = document.querySelectorAll(selector);
+    elements.forEach(el => {
+      // 如果元素还没有被观察过，添加观察器
+      if (!el.classList.contains('scroll-reveal-observed')) {
+        el.classList.add('scroll-reveal');
+        el.classList.add('scroll-reveal-observed');
+      }
+    });
+  });
+  
+  // 创建 Intersection Observer
+  const observerOptions = {
+    root: null, // 使用视口作为根
+    rootMargin: '0px 0px -50px 0px', // 稍微提前触发
+    threshold: 0.1 // 10% 可见时触发
+  };
+  
+  const revealObserver = new IntersectionObserver((entries, observer) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('revealed');
+        // 动画完成后停止观察该元素
+        observer.unobserve(entry.target);
+      }
+    });
+  }, observerOptions);
+  
+  // 观察所有 scroll-reveal 元素
+  const revealElements = document.querySelectorAll('.scroll-reveal');
+  revealElements.forEach(el => {
+    revealObserver.observe(el);
+  });
+}
+
+// ========================================
+// 滚动进度条 & 返回顶部按钮
+// ========================================
+function initScrollEffects() {
+  const progressBar = document.getElementById('scrollProgressBar');
+  const backToTop = document.getElementById('backToTop');
+  
+  // 监听滚动事件
+  window.addEventListener('scroll', () => {
+    // 计算滚动进度
+    const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+    const scrollHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+    const scrollProgress = (scrollTop / scrollHeight) * 100;
+    
+    // 更新进度条宽度
+    if (progressBar) {
+      progressBar.style.width = scrollProgress + '%';
+    }
+    
+    // 显示/隐藏返回顶部按钮 (滚动超过500px显示)
+    if (backToTop) {
+      if (scrollTop > 500) {
+        backToTop.classList.add('visible');
+      } else {
+        backToTop.classList.remove('visible');
+      }
+    }
+  });
+}
+
+// ========================================
+// 返回顶部
+// ========================================
+function scrollToTop() {
+  window.scrollTo({
+    top: 0,
+    behavior: 'smooth'
+  });
+}
+
+// 页面加载完成后初始化所有效果
+document.addEventListener('DOMContentLoaded', function() {
+  initScrollEffects();
+  initScrollReveal();
 });
 
 // ========================================
