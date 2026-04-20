@@ -1119,6 +1119,146 @@ a {
   font-size: 1.2rem;
 }
 
+/* Social Links */
+.social-links {
+  display: flex;
+  justify-content: center;
+  gap: var(--spacing-sm);
+  margin-top: var(--spacing-md);
+}
+
+.social-link {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  background: transparent;
+  border: 1px solid var(--color-border);
+  color: var(--color-text-secondary);
+  font-family: var(--font-heading);
+  font-size: 0.85rem;
+  letter-spacing: 0.05em;
+  transition: var(--transition-medium);
+}
+
+.social-link:hover {
+  border-color: var(--color-accent-red);
+  color: var(--color-accent-red);
+  background: rgba(168, 40, 40, 0.1);
+  box-shadow: 0 0 15px rgba(168, 40, 40, 0.3);
+}
+
+/* ========================================
+   Experience Section
+   ======================================== */
+.experience-section {
+  padding: var(--spacing-xl) 0;
+  background: var(--color-bg);
+}
+
+.timeline {
+  max-width: 700px;
+  margin: var(--spacing-lg) auto 0;
+  position: relative;
+}
+
+.timeline::before {
+  content: '';
+  position: absolute;
+  left: 8px;
+  top: 0;
+  bottom: 0;
+  width: 1px;
+  background: var(--color-border);
+}
+
+.timeline-item {
+  position: relative;
+  padding-left: var(--spacing-lg);
+  margin-bottom: var(--spacing-md);
+}
+
+.timeline-marker {
+  position: absolute;
+  left: 4px;
+  top: 8px;
+  width: 9px;
+  height: 9px;
+  background: var(--color-accent-red);
+  border-radius: 50%;
+  box-shadow: 0 0 10px rgba(168, 40, 40, 0.5);
+}
+
+.timeline-content {
+  background: var(--color-bg-card);
+  border: 1px solid var(--color-border);
+  padding: var(--spacing-md);
+  transition: var(--transition-medium);
+}
+
+.timeline-content:hover {
+  border-color: var(--color-accent-red);
+}
+
+.timeline-content h3 {
+  font-family: var(--font-heading);
+  font-size: 1.2rem;
+  letter-spacing: 0.05em;
+  margin-bottom: 0.3rem;
+  color: var(--color-text);
+}
+
+.timeline-company {
+  font-size: 0.95rem;
+  color: var(--color-accent-red);
+  margin-bottom: 0.3rem;
+}
+
+.timeline-period {
+  font-size: 0.85rem;
+  color: var(--color-text-secondary);
+  margin-bottom: 0.5rem;
+}
+
+.timeline-desc {
+  font-size: 0.9rem;
+  color: var(--color-text-secondary);
+  line-height: 1.6;
+}
+
+/* ========================================
+   Clients Section
+   ======================================== */
+.clients-section {
+  padding: var(--spacing-xl) 0;
+  background: var(--color-bg-secondary);
+}
+
+.clients-grid {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: var(--spacing-md);
+  margin-top: var(--spacing-lg);
+}
+
+.client-item {
+  padding: var(--spacing-sm) var(--spacing-md);
+  background: var(--color-bg-card);
+  border: 1px solid var(--color-border);
+  font-family: var(--font-heading);
+  font-size: 0.9rem;
+  letter-spacing: 0.1em;
+  color: var(--color-text-secondary);
+  transition: var(--transition-medium);
+}
+
+.client-item:hover {
+  border-color: var(--color-accent-red);
+  color: var(--color-accent-red);
+}
+
 /* ========================================
    Category Filter Tabs
    ======================================== */
@@ -2001,6 +2141,55 @@ a {
             <span class="icon">✉</span>
             <span>3335774630@qq.com</span>
           </a>
+          <a href="https://github.com/aNan-0313" target="_blank" class="contact-link">
+            <span class="icon">⌥</span>
+            <span>GitHub</span>
+          </a>
+        </div>
+
+        <!-- Social Links -->
+        <div class="social-links">
+          <a href="#" class="social-link" title="Instagram">IG</a>
+          <a href="#" class="social-link" title="Behance">Be</a>
+          <a href="#" class="social-link" title="ArtStation">Ar</a>
+          <a href="#" class="social-link" title="LinkedIn">Li</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Experience Section -->
+    <section class="experience-section section">
+      <div class="container">
+        <div class="section-header">
+          <h2>Experience</h2>
+          <p>工作经历</p>
+        </div>
+        
+        <div class="timeline">
+          <div class="timeline-item">
+            <div class="timeline-marker"></div>
+            <div class="timeline-content">
+              <h3>Motion Designer</h3>
+              <p class="timeline-company">独立设计师</p>
+              <p class="timeline-period">2022 - Present</p>
+              <p class="timeline-desc">专注品牌视觉与3D动态设计，服务多个品牌客户，涵盖品牌活动视觉、产品渲染、动态海报等领域。</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Clients Section -->
+    <section class="clients-section section">
+      <div class="container">
+        <div class="section-header">
+          <h2>Collaborations</h2>
+          <p>合作客户</p>
+        </div>
+        
+        <div class="clients-grid">
+          <div class="client-item">ROCK&RIDE</div>
+          <div class="client-item">更多客户...</div>
         </div>
       </div>
     </section>
